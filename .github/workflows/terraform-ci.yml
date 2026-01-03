@@ -23,6 +23,10 @@ jobs:
         with:
           terraform_version: 1.5.0
 
+      - name: Initialise Terraform
+        run: terraform init
+        working-directory: ./
+
       - name: Terraform Validation
         run: terraform validate
         working-directory: ./
