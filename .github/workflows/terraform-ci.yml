@@ -1,39 +1,8 @@
-# name: Terraform CI Pipeline
-
-# on:
-#   push:
-#     branches:
-#       - "**"
-
-# jobs:
-#   terraform:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v2
-#         with:
-#           terraform_version: 1.5.0
-
-#       - name: Terraform Validation
-#         run: terraform validate
-#         working-directory: ./
-
-#       - name: Terraform Formatting
-#         uses: dflook/terraform-fmt@v2
-#         with:
-#           path: ./
 name: CI pipeline
 on:
   push:
-    branches:
-      - "**" # matches every branch
-# defaults:
-#   run:
-#     working-directory: "terraform/"
+    paths:
+      - "**.tf"
 jobs:
   ci:
     name: ci
@@ -42,8 +11,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
       - name: terraform fmt
         uses: dflook/terraform-fmt-check@v1
+
       - name: terraform validate
         uses: dflook/terraform-validate@v2
         with:
