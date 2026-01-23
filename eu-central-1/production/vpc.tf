@@ -25,7 +25,7 @@ resource "aws_subnet" "public-subnet" {
   tags = merge(local.common_tags, { Name : "secure-production-public" })
 }
 
-resource "aws_internet_gateway" "igw" {
+resource "aws_internet_gateway" "secure-production-igw" {
   vpc_id = aws_vpc.federated-engineers-vpc.id
 
   tags = merge(local.common_tags, { Name : "secure-production-igw" })
@@ -53,6 +53,12 @@ resource "aws_route_table_association" "public_subnet_associations" {
 
   subnet_id      = aws_subnet.public-subnet.id
   route_table_id = aws_route_table.public-rtb.id
+}
+
+resource "aws_route" "public-route" {
+  route_table_id            = aws_route_table.public-rtb.id
+  destination_cidr_block    = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.secure-production-igw.id
 }
 
 resource "aws_security_group" "secure-production-sg" {
