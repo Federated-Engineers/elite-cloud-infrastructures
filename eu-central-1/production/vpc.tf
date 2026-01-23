@@ -3,16 +3,16 @@ resource "aws_vpc" "federated-engineers-vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = merge(local.common_tags, {Name: "secure-production"})
+  tags = merge(local.common_tags, { Name : "secure-production" })
 }
 
 resource "aws_subnet" "private-subnet" {
 
-  vpc_id                  = aws_vpc.federated-engineers-vpc.id
-  cidr_block              = "10.0.0.0/24"
-  availability_zone       = "eu-central-1a"
+  vpc_id            = aws_vpc.federated-engineers-vpc.id
+  cidr_block        = "10.0.0.0/24"
+  availability_zone = "eu-central-1a"
 
-  tags = merge(local.common_tags, {Name: "secure-production-private"})
+  tags = merge(local.common_tags, { Name : "secure-production-private" })
 }
 
 resource "aws_subnet" "public-subnet" {
@@ -22,19 +22,19 @@ resource "aws_subnet" "public-subnet" {
   availability_zone       = "eu-central-1b"
   map_public_ip_on_launch = true
 
-  tags = merge(local.common_tags, {Name: "secure-production-public"})
+  tags = merge(local.common_tags, { Name : "secure-production-public" })
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.federated-engineers-vpc.id
 
-  tags = merge(local.common_tags, {Name: "secure-production-igw"})
+  tags = merge(local.common_tags, { Name : "secure-production-igw" })
 }
 
 resource "aws_route_table" "private-rtb" {
   vpc_id = aws_vpc.federated-engineers-vpc.id
 
-  tags = merge(local.common_tags, {Name: "secure-production-private-rt"})
+  tags = merge(local.common_tags, { Name : "secure-production-private-rt" })
 }
 
 resource "aws_route_table_association" "private_subnet_associations" {
@@ -46,7 +46,7 @@ resource "aws_route_table_association" "private_subnet_associations" {
 resource "aws_route_table" "public-rtb" {
   vpc_id = aws_vpc.federated-engineers-vpc.id
 
-  tags = merge(local.common_tags, {Name: "secure-production-public-rt"})
+  tags = merge(local.common_tags, { Name : "secure-production-public-rt" })
 }
 
 resource "aws_route_table_association" "public_subnet_associations" {
