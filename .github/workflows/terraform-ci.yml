@@ -14,6 +14,8 @@ jobs:
 
       - name: terraform fmt
         uses: dflook/terraform-fmt-check@v1
+        with:
+          path: ./eu-central-1/production
 
       - name: terraform validate
         uses: dflook/terraform-validate@v2
