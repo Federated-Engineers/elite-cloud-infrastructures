@@ -3,9 +3,7 @@ on:
   pull_request:
     paths:
       - "**.tf"
-  push:
-    branches:
-      - "**"
+
 jobs:
   ci:
     name: ci
