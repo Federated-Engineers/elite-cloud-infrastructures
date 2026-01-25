@@ -56,9 +56,9 @@ resource "aws_route_table_association" "public_subnet_associations" {
 }
 
 resource "aws_route" "public-route" {
-  route_table_id            = aws_route_table.public-rtb.id
-  destination_cidr_block    = "0.0.0.0/0"
-  gateway_id = aws_internet_gateway.secure-production-igw.id
+  route_table_id         = aws_route_table.public-rtb.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.secure-production-igw.id
 }
 
 resource "aws_security_group" "secure-production-sg" {

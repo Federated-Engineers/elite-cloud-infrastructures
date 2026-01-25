@@ -5,4 +5,4 @@ resource "aws_vpc_endpoint" "s3_gateway" {
   route_table_ids   = [aws_route_table.private-rtb.id]
 
   tags = merge(local.common_tags, { Name : "s3-vpc-endpoint" })
-  }
+}
