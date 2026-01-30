@@ -1,0 +1,5 @@
+# version: 3
+# projects:
+#    - dir: eu-central-1/production
+#      autoplan:
+#         enabled: true
