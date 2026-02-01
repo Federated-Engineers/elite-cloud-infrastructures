@@ -3,15 +3,14 @@ This repository manages our cloud infrastructure using Terraform, to provision a
 
 ## Repository Structure
 .
-├── .github/workflows
-
-└── eu-central-1
-    ├── staging
-    └── production
-
-├──.gitignore
-
-├── REAME.md
+├── .github
+│   └── workflows
+│       └── terraform-ci.yml
+├── eu-central-1
+│   ├── staging
+│   └── production
+├── .gitignore
+└── README.md
 
 - `.github/workflows` contains the GitHub Actions workflows used for continuous integration.
 - `eu-central-1` contains Terraform configurations grouped by environment which includes: dev, staging, and production that represents separate deployment environments.
