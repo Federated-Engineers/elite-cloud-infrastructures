@@ -2,16 +2,19 @@
 This repository manages our cloud infrastructure using Terraform, to provision and manage cloud infrastructure across multiple environments. The infrastructure is organised by region and environment to ensure clarity, consistency, and safe separation of resources.
 
 ## Repository Structure
+```text
 .
 ├── .github
 │   └── workflows
 │       └── terraform-ci.yml
 ├── eu-central-1
+│   ├── dev
 │   ├── staging
 │   └── production
 ├── .gitignore
 └── README.md
 
+```
 - `.github/workflows` contains the GitHub Actions workflows used for continuous integration.
 - `eu-central-1` contains Terraform configurations grouped by environment which includes: dev, staging, and production that represents separate deployment environments.
 
