@@ -3,7 +3,7 @@ This repository manages our cloud infrastructure using Terraform, to provision a
 
 ## Repository Structure
 - .github/workflows contains the GitHub Actions workflows used for continuous integration.
-- eu-central-1 contains Terraform configurations grouped by environment which includes: dev, staging, and production that represents separate deployment environments.
+- `eu-central-1` contains Terraform configurations grouped by environment which includes: dev, staging, and production that represents separate deployment environments.
 
 ## Contribution Workflow
 > **NOTE:** All Terraform changes in this repository must be made through a Pull Request. This is a strict requirement. Direct pushes are not allowed.
