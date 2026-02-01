@@ -4,10 +4,13 @@ This repository manages our cloud infrastructure using Terraform, to provision a
 ## Repository Structure
 .
 ├── .github/workflows
+
 └── eu-central-1
     ├── staging
     └── production
+
 ├──.gitignore
+
 ├── REAME.md
 
 - `.github/workflows` contains the GitHub Actions workflows used for continuous integration.
@@ -23,9 +26,9 @@ Terraform planning and application are handled automatically by Atlantis, which 
 2. You make your Terraform changes (`.tf` files only)
 3. You open a Pull Request
 4. Once the PR is opened:
-  - GitHub Actions runs validation checks (see below)
-  - Atlantis automatically runs `terraform plan`
+      - GitHub Actions runs validation checks (see below)
+      - Atlantis automatically runs `terraform plan`
 5. Someone from the team will review the code and after review, then approval:
-  - Atlantis runs by commenting `atlantis apply` directly from the PR
+      - Atlantis runs by commenting `atlantis apply` directly from the PR
 
 This workflow ensures that infrastructure changes are reviewed, validated, and applied in a safe and auditable way across all environments.
