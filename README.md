@@ -8,7 +8,6 @@ This repository manages our cloud infrastructure using Terraform, to provision a
 │   └── workflows
 │       └── terraform-ci.yml
 ├── eu-central-1
-│   ├── dev
 │   ├── staging
 │   └── production
 ├── .gitignore
