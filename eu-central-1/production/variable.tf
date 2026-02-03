@@ -21,3 +21,6 @@ variable "project" {
   type        = string
   default     = "Federated-Engineers"
 }
+
+variable "vpc_id" {}
+variable "subnet_id" {}
