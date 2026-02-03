@@ -27,7 +27,7 @@ Terraform planning and application are handled automatically by Atlantis, which 
 2. You make your Terraform changes (`.tf` files only)
 3. You open a Pull Request
 4. Once the PR is opened:
-      - GitHub Actions runs validation checks (see below)
+      - GitHub Actions runs validation checks
       - Atlantis automatically runs `terraform plan`
 5. Someone from the team will review the code and after review, then approval:
       - Atlantis runs by commenting `atlantis apply` directly from the PR
