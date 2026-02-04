@@ -1,8 +1,8 @@
 locals {
   common_tags = {
-    team        = var.team
-    project     = var.project
-    terraform   = true
+    team      = var.team
+    project   = var.project
+    terraform = true
   }
 
   # requested pattern: environment-organisation-team-relatedproject
