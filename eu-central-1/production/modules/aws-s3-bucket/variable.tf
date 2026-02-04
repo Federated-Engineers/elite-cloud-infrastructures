@@ -11,7 +11,13 @@ variable "environment" {
 }
 
 variable "project" {
-  description = "The project owner"
+  description = "The project owner / organisation"
   type        = string
-  default     = "Federated-Engineers"
+  default     = "federated-engineers"
+}
+
+variable "related_project" {
+  description = "Related project or component (e.g., logs, data-lake)"
+  type        = string
+  default     = "s3"
 }
