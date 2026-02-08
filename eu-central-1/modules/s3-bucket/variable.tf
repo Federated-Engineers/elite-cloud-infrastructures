@@ -13,6 +13,11 @@ variable "bucket-use-case" {
   type        = string
 }
 
+variable "service" {
+  description = "The service using the bucket (e.g. lambda, glue, sagemaker, ec2, etc.)"
+  type        = string
+}
+
 variable "versioning" {
   description = "versioning status for the S3 bucket (Enabled/Disabled)"
   type        = string
