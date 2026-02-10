@@ -4,5 +4,5 @@ module "injest_bucket" {
   bucket-use-case = "data-lake"
   service         = "airflow"
   versioning      = "Enabled"
-  environment     = "var.environment"
+  environment     = var.environment
 }
