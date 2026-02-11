@@ -3,6 +3,5 @@ module "elite_engineers_staging_zone" {
   team            = "elite"
   service         = "airflow"
   bucket-use-case  = "data-lake" 
-  versioning      = "Enabled"
   environment     = var.environment
 }
