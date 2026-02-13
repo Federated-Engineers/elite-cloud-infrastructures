@@ -3,3 +3,9 @@ resource "aws_s3_bucket" "example" {
 
   tags = local.common_tags
 }
+
+resource "aws_s3_bucket" "example-1" {
+  bucket = "staging-federated-engineers-adhoc-1"
+
+  tags = local.common_tags
+}
