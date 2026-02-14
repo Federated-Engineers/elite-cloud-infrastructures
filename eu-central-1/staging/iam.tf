@@ -25,28 +25,28 @@ resource "aws_iam_policy" "staging_bucket_rw" {
   })
 }
 
-resource "aws_iam_user" "staging_user" {
-  name = "staging-user"
+resource "aws_iam_user" "airflow-dev-user" {
+  name = "airflow-dev-user"
 }
 
 resource "aws_iam_user_policy_attachment" "attach_policy" {
-  user       = aws_iam_user.staging_user.name
+  user       = aws_iam_user.airflow-dev-user.name
   policy_arn = aws_iam_policy.staging_bucket_rw.arn
 }
 
-resource "aws_iam_access_key" "staging_user_key" {
-  user = aws_iam_user.staging_user.name
+resource "aws_iam_access_key" "airflow_dev_secret_key" {
+  user = aws_iam_user.airflow-dev-user.name
 }
 
 resource "aws_ssm_parameter" "staging_access_key" {
-  name  = "/staging/system-user/access-key"
+  name  = "/staging/airflow-dev/aws-access-key"
   type  = "SecureString"
-  value = aws_iam_access_key.staging_user_key.id
+  value = aws_iam_access_key.airflow_dev_secret_key.id
 }
 
 resource "aws_ssm_parameter" "staging_secret_key" {
-  name  = "/staging/system-user/secret-key"
+  name  = "/staging/airflow-dev/aws-secret-key"
   type  = "SecureString"
-  value = aws_iam_access_key.staging_user_key.secret
+  value = aws_iam_access_key.airflow_dev_secret_key.secret
 }
 
