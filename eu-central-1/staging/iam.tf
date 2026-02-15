@@ -9,7 +9,10 @@ resource "aws_iam_policy" "staging_bucket_rw" {
         Sid    = "ListBucket"
         Effect = "Allow"
         Action = "s3:ListBucket"
-        Resource = aws_s3_bucket.example.arn
+        Resource = [
+          aws_s3_bucket.adhoc_bucket.arn,
+          module.elite_engineers_staging_zone.arn
+        ]
       },
       {
         Sid    = "ObjectAccess"
@@ -19,7 +22,10 @@ resource "aws_iam_policy" "staging_bucket_rw" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "${aws_s3_bucket.example.arn}/*"
+        Resource = [
+          "${aws_s3_bucket.adhoc_bucket.arn}/*",
+          "${module.elite_engineers_staging_zone.arn}/*"
+        ]
       }
     ]
   })
