@@ -11,4 +11,8 @@ module "elite_engineers_staging_zone" {
   bucket-use-case  = "data-lake" 
   versioning      = "Suspended"
   environment     = var.environment
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f49c13e (local staging data lake updates)
