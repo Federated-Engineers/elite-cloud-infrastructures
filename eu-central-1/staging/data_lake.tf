@@ -12,3 +12,8 @@ module "elite_engineers_staging_zone" {
   versioning      = "Suspended"
   environment     = var.environment
 }
+resource "aws_s3_bucket" "example" {
+  bucket = "staging-federated-engineers-adhoc"
+
+  tags = local.common_tags
+}
