@@ -43,10 +43,9 @@ resource "aws_subnet" "elite-private-b" {
 }
 
 resource "aws_subnet" "elite-public-c" {
-  vpc_id            = aws_vpc.elite-vpc.id
-  cidr_block        = "172.16.32.0/21"
-  availability_zone = "eu-central-1c"
-
+  vpc_id                  = aws_vpc.elite-vpc.id
+  cidr_block              = "172.16.32.0/21"
+  availability_zone       = "eu-central-1c"
   map_public_ip_on_launch = true
 
   tags = merge(local.common_tags, { Name = "elite-secure-production-public-c" })
