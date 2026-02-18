@@ -4,11 +4,11 @@ resource "aws_vpc" "elite-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "elite-vpc"
+    Name = "elite-secure-production"
   }
 }
 
-resource "aws_subnet" "public-subnet-a" {
+resource "aws_subnet" "elite-public-subnet-a" {
   vpc_id            = aws_vpc.elite-vpc.id
   cidr_block        = "172.16.0.0/21"
   availability_zone = "eu-central-1a"
@@ -16,13 +16,13 @@ resource "aws_subnet" "public-subnet-a" {
   map_public_ip_on_launch = true
 }
 
-resource "aws_subnet" "private-subnet-a" {
+resource "aws_subnet" "elite-private-subnet-a" {
   vpc_id            = aws_vpc.elite-vpc.id
   cidr_block        = "172.16.8.0/21"
   availability_zone = "eu-central-1a"
 }
 
-resource "aws_subnet" "public-subnet-b" {
+resource "aws_subnet" "elite-public-subnet-b" {
   vpc_id            = aws_vpc.elite-vpc.id
   cidr_block        = "172.16.16.0/21"
   availability_zone = "eu-central-1b"
@@ -30,13 +30,13 @@ resource "aws_subnet" "public-subnet-b" {
   map_public_ip_on_launch = true
 }
 
-resource "aws_subnet" "private-subnet-b" {
+resource "aws_subnet" "elite-private-subnet-b" {
   vpc_id            = aws_vpc.elite-vpc.id
   cidr_block        = "172.16.24.0/21"
   availability_zone = "eu-central-1b"
 }
 
-resource "aws_subnet" "public-subnet-c" {
+resource "aws_subnet" "elite-public-subnet-c" {
   vpc_id            = aws_vpc.elite-vpc.id
   cidr_block        = "172.16.32.0/21"
   availability_zone = "eu-central-1c"
@@ -44,7 +44,7 @@ resource "aws_subnet" "public-subnet-c" {
   map_public_ip_on_launch = true
 }
 
-resource "aws_subnet" "private-subnet-c" {
+resource "aws_subnet" "elite-private-subnet-c" {
   vpc_id            = aws_vpc.elite-vpc.id
   cidr_block        = "172.16.40.0/21"
   availability_zone = "eu-central-1c"
@@ -53,17 +53,22 @@ resource "aws_subnet" "private-subnet-c" {
 resource "aws_internet_gateway" "elite-gateway" {
   vpc_id = aws_vpc.elite-vpc.id
 
-  tags = {
-    Name = "elite-vpc-internet-gateway"
-  }
-
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "elite-vpc-internet-gateway"
+    }
+  )
 }
 
 resource "aws_route_table" "public-subnet-rtb" {
   vpc_id = aws_vpc.elite-vpc.id
-  tags = {
-    Name = "elite-vpc-public-subnet-rtb"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "elite-vpc-public-subnet-rtb"
+    }
+  )
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -72,39 +77,42 @@ resource "aws_route_table" "public-subnet-rtb" {
 }
 
 resource "aws_route_table_association" "public-rtb-a" {
-  subnet_id      = aws_subnet.public-subnet-a.id
+  subnet_id      = aws_subnet.elite-public-subnet-a.id
   route_table_id = aws_route_table.public-subnet-rtb.id
 }
 
 resource "aws_route_table_association" "public-rtb-b" {
-  subnet_id      = aws_subnet.public-subnet-b.id
+  subnet_id      = aws_subnet.elite-public-subnet-b.id
   route_table_id = aws_route_table.public-subnet-rtb.id
 }
 
 resource "aws_route_table_association" "public-rtb-c" {
-  subnet_id      = aws_subnet.public-subnet-c.id
+  subnet_id      = aws_subnet.elite-public-subnet-c.id
   route_table_id = aws_route_table.public-subnet-rtb.id
 }
 
 resource "aws_route_table" "private-subnet-rtb" {
   vpc_id = aws_vpc.elite-vpc.id
-  tags = {
-    Name = "elite-vpc-private-subnet-rtb"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "elite-vpc-private-subnet-rtb"
+    }
+  )
 }
 
 resource "aws_route_table_association" "private-rtb-a" {
-  subnet_id      = aws_subnet.private-subnet-a.id
+  subnet_id      = aws_subnet.elite-private-subnet-a.id
   route_table_id = aws_route_table.private-subnet-rtb.id
 }
 
 resource "aws_route_table_association" "private-rtb-b" {
-  subnet_id      = aws_subnet.private-subnet-b.id
+  subnet_id      = aws_subnet.elite-private-subnet-b.id
   route_table_id = aws_route_table.private-subnet-rtb.id
 }
 
 resource "aws_route_table_association" "private-rtb-c" {
-  subnet_id      = aws_subnet.private-subnet-c.id
+  subnet_id      = aws_subnet.elite-private-subnet-c.id
   route_table_id = aws_route_table.private-subnet-rtb.id
 }
 
@@ -113,9 +121,12 @@ resource "aws_security_group" "elite-sg" {
   description = "security group for the VPC"
   vpc_id      = aws_vpc.elite-vpc.id
 
-  tags = {
-    Name = "elite-vpc-sg"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "elite-vpc-sg"
+    }
+  )
 }
 
 resource "aws_vpc_security_group_egress_rule" "elite-sg-egress" {
