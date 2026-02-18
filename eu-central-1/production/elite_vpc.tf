@@ -10,7 +10,7 @@ resource "aws_vpc" "elite-vpc" {
 
 resource "aws_subnet" "public-subnet-a" {
   vpc_id            = aws_vpc.elite-vpc.id
-  cidr_block        = "172.16.0.0/19"
+  cidr_block        = "172.16.0.0/21"
   availability_zone = "eu-central-1a"
 
   map_public_ip_on_launch = true
@@ -18,13 +18,13 @@ resource "aws_subnet" "public-subnet-a" {
 
 resource "aws_subnet" "private-subnet-a" {
   vpc_id            = aws_vpc.elite-vpc.id
-  cidr_block        = "172.16.32.0/19"
+  cidr_block        = "172.16.8.0/21"
   availability_zone = "eu-central-1a"
 }
 
 resource "aws_subnet" "public-subnet-b" {
   vpc_id            = aws_vpc.elite-vpc.id
-  cidr_block        = "172.16.64.0/19"
+  cidr_block        = "172.16.16.0/21"
   availability_zone = "eu-central-1b"
 
   map_public_ip_on_launch = true
@@ -32,13 +32,13 @@ resource "aws_subnet" "public-subnet-b" {
 
 resource "aws_subnet" "private-subnet-b" {
   vpc_id            = aws_vpc.elite-vpc.id
-  cidr_block        = "172.16.96.0/19"
+  cidr_block        = "172.16.24.0/21"
   availability_zone = "eu-central-1b"
 }
 
 resource "aws_subnet" "public-subnet-c" {
   vpc_id            = aws_vpc.elite-vpc.id
-  cidr_block        = "172.16.128.0/18"
+  cidr_block        = "172.16.32.0/21"
   availability_zone = "eu-central-1c"
 
   map_public_ip_on_launch = true
@@ -46,7 +46,7 @@ resource "aws_subnet" "public-subnet-c" {
 
 resource "aws_subnet" "private-subnet-c" {
   vpc_id            = aws_vpc.elite-vpc.id
-  cidr_block        = "172.16.192.0/18"
+  cidr_block        = "172.16.40.0/21"
   availability_zone = "eu-central-1c"
 }
 
