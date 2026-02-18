@@ -30,7 +30,7 @@ resource "aws_iam_policy" "staging_bucket_rw" {
 }
 
 resource "aws_iam_user" "airflow-dev-user" {
-  name = "airflow-dev-user"
+  name = "elite-airflow-dev-user"
 }
 
 resource "aws_iam_user_policy_attachment" "attach_policy" {
@@ -43,13 +43,13 @@ resource "aws_iam_access_key" "airflow_dev_secret_key" {
 }
 
 resource "aws_ssm_parameter" "staging_access_key" {
-  name  = "/staging/airflow-dev/aws-access-key"
+  name  = "/staging/elite/airflow-dev/aws-access-key"
   type  = "SecureString"
   value = aws_iam_access_key.airflow_dev_secret_key.id
 }
 
 resource "aws_ssm_parameter" "staging_secret_key" {
-  name  = "/staging/airflow-dev/aws-secret-key"
+  name  = "/staging/elite/airflow-dev/aws-secret-key"
   type  = "SecureString"
   value = aws_iam_access_key.airflow_dev_secret_key.secret
 }
