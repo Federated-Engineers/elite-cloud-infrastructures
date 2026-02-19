@@ -1,4 +1,4 @@
-resource "aws_vpc_endpoint" "s3_gateway" {
+resource "aws_vpc_endpoint" "elite_s3_gateway" {
   vpc_id            = aws_vpc.federated-engineers-vpc.id
   service_name      = "com.amazonaws.${var.region}.s3"
   vpc_endpoint_type = "Gateway"
