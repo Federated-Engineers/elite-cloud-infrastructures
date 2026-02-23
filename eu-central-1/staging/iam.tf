@@ -38,6 +38,11 @@ resource "aws_iam_user_policy_attachment" "attach_policy" {
   policy_arn = aws_iam_policy.staging_bucket_rw.arn
 }
 
+resource "aws_iam_group_policy_attachment" "attach_group_access" {
+  group      = "elite-data-engineers"
+  policy_arn = aws_iam_policy.staging_bucket_rw.arn
+}
+
 resource "aws_iam_access_key" "airflow_dev_secret_key" {
   user = aws_iam_user.airflow-dev-user.name
 }
