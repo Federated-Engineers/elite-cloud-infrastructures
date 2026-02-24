@@ -59,3 +59,4 @@ resource "aws_ssm_parameter" "staging_secret_key" {
   value = aws_iam_access_key.airflow_dev_secret_key.secret
 }
 
+
