@@ -1,4 +1,4 @@
-resource "aws_iam_policy" "airflow_s3_policy" {
+resource "aws_iam_policy" "airflow_S3_access_policy" {
   name        = "airflow-staging-s3-access"
   description = "Allow Airflow to access staging bucket"
 
