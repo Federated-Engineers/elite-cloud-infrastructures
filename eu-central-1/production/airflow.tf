@@ -6,23 +6,14 @@ resource "aws_iam_policy" "airflow_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "ListBucket"
+        Sid    = "Readandwrite"
         Effect = "Allow"
         Action = [
-          "s3:ListBucket"
+          "s3:List*",
+          "s3:*Object*"
         ]
         Resource = [
-          "${module.injest_bucket.arn}"
-        ]
-      },
-      {
-        Sid    = "ObjectAccess"
-        Effect = "Allow"
-        Action = [
-          "s3:GetObject",
-          "s3:PutObject",
-        ]
-        Resource = [
+          module.injest_bucket.arn,
           "${module.injest_bucket.arn}/*"
         ]
       }
