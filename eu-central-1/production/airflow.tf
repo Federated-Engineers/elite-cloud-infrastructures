@@ -1,6 +1,6 @@
-resource "aws_iam_policy" "airflow_S3_access_policy" {
-  name        = "airflow-staging-s3-access"
-  description = "Allow Airflow to access staging bucket"
+resource "aws_iam_policy" "airflow_policy" {
+  name        = "elite-airflow-access-policy"
+  description = "Allow Airflow to access aws resources"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -12,7 +12,7 @@ resource "aws_iam_policy" "airflow_S3_access_policy" {
           "s3:ListBucket"
         ]
         Resource = [
-          module.elite_engineers_staging_zone.arn
+          "${module.injest_bucket.arn}"
         ]
       },
       {
@@ -21,10 +21,9 @@ resource "aws_iam_policy" "airflow_S3_access_policy" {
         Action = [
           "s3:GetObject",
           "s3:PutObject",
-          "s3:DeleteObject"
         ]
         Resource = [
-          "${module.elite_engineers_staging_zone.arn}/*"
+          "${module.injest_bucket.arn}/*"
         ]
       }
     ]
