@@ -10,7 +10,7 @@ resource "aws_iam_policy" "airflow_policy" {
         Effect = "Allow"
         Action = [
           "s3:List*",
-          "s3:*Object*",
+          "s3:*Object*"
         ]
 
         # add your bucket here
