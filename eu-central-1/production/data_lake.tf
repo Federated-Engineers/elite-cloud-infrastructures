@@ -15,5 +15,3 @@ module "nordic_peak_bucket" {
   versioning      = "Enabled"
   environment     = var.environment
 }
-
-
