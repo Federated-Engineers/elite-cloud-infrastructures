@@ -14,7 +14,9 @@ resource "aws_iam_policy" "airflow_policy" {
         ]
         Resource = [
           module.injest_bucket.arn,
-          "${module.injest_bucket.arn}/*"
+          "${module.injest_bucket.arn}/*",
+          module.nordic_peak_bucket.arn,
+          "${module.nordic_peak_bucket.arn}/*"
         ]
       }
     ]
