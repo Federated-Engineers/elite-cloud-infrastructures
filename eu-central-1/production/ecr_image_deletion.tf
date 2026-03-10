@@ -7,9 +7,9 @@ data "aws_ecr_lifecycle_policy_document" "elite_airflow" {
     }
 
     selection {
-      tag_status      = "any"
-      count_type      = "imageCountMoreThan"
-      count_number    = 3
+      tag_status   = "any"
+      count_type   = "imageCountMoreThan"
+      count_number = 3
     }
   }
 }
