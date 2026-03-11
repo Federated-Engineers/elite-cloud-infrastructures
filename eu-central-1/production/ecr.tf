@@ -13,7 +13,7 @@ resource "aws_ecr_repository" "elite_airflow" {
 data "aws_ecr_lifecycle_policy_document" "elite_airflow" {
   rule {
     priority    = 1
-    description = "To delete images so that only the last 3 recent images are kept"
+    description = "To delete ecr images so that only the last 3 recent images are kept"
     action {
       type = "expire"
     }
