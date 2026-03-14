@@ -7,7 +7,6 @@ resource "aws_s3_bucket" "alpen_storage" {
   }
 }
 
-
 resource "aws_s3_bucket_public_access_block" "block_access" {
   bucket = aws_s3_bucket.alpen_storage.id
 
@@ -17,7 +16,6 @@ resource "aws_s3_bucket_public_access_block" "block_access" {
   restrict_public_buckets = true
 }
 
-# ================================= IAM Role and Policy ===========
 resource "aws_iam_role" "sftp_user_role" {
   name = "sftp_user"
 
@@ -72,15 +70,11 @@ resource "aws_iam_role_policy" "sftp_user_policy" {
   })
 }
 
-# ==============================================================================
-# Creating an SFTP Server
-
-
 resource "aws_transfer_server" "alpen_server" {
-  protocols                   = ["SFTP"]
-  endpoint_type               = "PUBLIC"
-  identity_provider_type      = "SERVICE_MANAGED"
-  domain                      = "S3"
+  protocols              = ["SFTP"]
+  endpoint_type          = "PUBLIC"
+  identity_provider_type = "SERVICE_MANAGED"
+  domain                 = "S3"
 
   tags = {
     Name = "Alpen_SFTP_Server"
@@ -88,18 +82,17 @@ resource "aws_transfer_server" "alpen_server" {
 }
 
 resource "aws_transfer_user" "vendor" {
-  server_id = aws_transfer_server.alpen_server.id
-  user_name = "vendor"
-  role      = aws_iam_role.sftp_user_role.arn 
+  server_id           = aws_transfer_server.alpen_server.id
+  user_name           = "vendor"
+  role                = aws_iam_role.sftp_user_role.arn
   home_directory_type = "LOGICAL"
-  
+
   home_directory_mappings {
     entry  = "/"
     target = "/${aws_s3_bucket.alpen_storage.id}/vendor"
+  }
 }
-}
-# ==============================================================================
-# Creating SSH Key
+
 resource "tls_private_key" "sftp_ssh_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
