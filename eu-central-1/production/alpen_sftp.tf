@@ -78,7 +78,7 @@ resource "aws_transfer_user" "vendor" {
   tags = local.common_tags
 
   home_directory_mappings {
-    entry  = "/"
+    entry  = "/vendor"
     target = "/${module.sftp_bucket.bucket_name}/vendor"
   }
 }
