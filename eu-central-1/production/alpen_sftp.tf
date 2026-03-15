@@ -17,6 +17,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
 
 resource "aws_iam_role" "sftp_user_role" {
   name = "sftp_user"
+  tags_all = merge(local.common_tags, {Name = "SFTPWriteToS3"})
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -51,7 +52,7 @@ resource "aws_iam_role_policy" "sftp_user_policy" {
           "s3:ListBucket",
           "s3:GetBucketLocation"
         ]
-        Resource = "arn:aws:s3:::${aws_s3_bucket.federated-engineers-bucket.id}"
+        Resource = "${aws_s3_bucket.federated-engineers-bucket.id}"
       },
       {
         Sid    = "ManageObjects"
@@ -61,7 +62,7 @@ resource "aws_iam_role_policy" "sftp_user_policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "arn:aws:s3:::${aws_s3_bucket.federated-engineers-bucket.id}/vendor/*"
+        Resource = "${aws_s3_bucket.federated-engineers-bucket.arn}/vendor/*"
       }
     ]
   })
