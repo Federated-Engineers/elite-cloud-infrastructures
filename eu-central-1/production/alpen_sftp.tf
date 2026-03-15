@@ -79,7 +79,7 @@ resource "aws_transfer_user" "vendor" {
 
   home_directory_mappings {
     entry  = "/"
-    target = "/${aws_s3_bucket.federated-engineers-bucket.id}/vendor"
+    target = "/${module.sftp_bucket.arn}/vendor"
   }
 }
 
