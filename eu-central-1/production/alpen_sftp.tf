@@ -16,8 +16,8 @@ resource "aws_s3_bucket_versioning" "versioning" {
 }
 
 resource "aws_iam_role" "sftp_user_role" {
-  name = "sftp_user"
-  tags_all = merge(local.common_tags, {Name = "SFTPWriteToS3"})
+  name     = "sftp_user"
+  tags_all = merge(local.common_tags, { Name = "SFTPWriteToS3" })
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
