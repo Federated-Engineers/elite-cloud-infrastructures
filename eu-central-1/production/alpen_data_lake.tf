@@ -1,8 +1,8 @@
-module "injest_bucket" {
+module "sftp_bucket" {
   source          = "../modules/s3-bucket"
   team            = "elite"
-  bucket-use-case = "data-lake"
+  bucket-use-case = "alpen-sftp-server"
   service         = "airflow"
-  versioning      = "Enabled"
+  versioning      = "Disabled"
   environment     = var.environment
 }
