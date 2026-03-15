@@ -98,7 +98,7 @@ data "aws_ssm_parameter" "alpen_public_key" {
 resource "aws_transfer_ssh_key" "server_key" {
   server_id = aws_transfer_server.alpen_server.id
   user_name = aws_transfer_user.vendor.user_name
-  body      = data.ssm_parameter.alpen_public_key.value
+  body      = data.aws_ssm_parameter.alpen_public_key.value
 }
 
 
