@@ -91,7 +91,7 @@ resource "aws_transfer_user" "vendor" {
 }
 
 data "ssm_parameter" "alpen_public_key" {
-  name = "/production/elite/alpen_mechaniks/publc_key"
+  name = "/production/elite/alpen_mechaniks/sftp_server/alpen_ssh_keys.pub"
 }
 
 resource "aws_transfer_ssh_key" "server_key" {
