@@ -21,3 +21,23 @@ variable "project" {
   type        = string
   default     = "Federated-Engineers"
 }
+
+
+variable "versioning" {
+  description = "versioning status for the S3 bucket"
+  type        = string
+  default     = "Disabled"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

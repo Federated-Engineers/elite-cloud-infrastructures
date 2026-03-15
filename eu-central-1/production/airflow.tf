@@ -18,7 +18,7 @@ resource "aws_iam_policy" "airflow_policy" {
           module.nordic_peak_bucket.arn,
           "${module.nordic_peak_bucket.arn}/*",
           module.balearic_bucket.arn,
-          "${module.balearic_bucket.arn}/*"
+          "${module.balearic_bucket.arn}/*",
         ]
       }
     ]
