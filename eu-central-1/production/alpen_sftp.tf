@@ -79,7 +79,7 @@ resource "aws_transfer_user" "vendor" {
 
   home_directory_mappings {
     entry  = "/"
-    target = "/${module.sftp_bucket.arn}/vendor"
+    target = "/${module.sftp_bucket.bucket_name}/vendor"
   }
 }
 
