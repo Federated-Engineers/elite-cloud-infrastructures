@@ -52,7 +52,7 @@ resource "aws_iam_role_policy" "sftp_user_policy" {
           "s3:ListBucket",
           "s3:GetBucketLocation"
         ]
-        Resource = "${aws_s3_bucket.federated-engineers-bucket.id}"
+        Resource = "${aws_s3_bucket.federated-engineers-bucket.arn}"
       },
       {
         Sid    = "ManageObjects"
