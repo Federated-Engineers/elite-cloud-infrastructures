@@ -1,18 +1,10 @@
-resource "aws_s3_bucket" "federated-engineers-bucket" {
-  bucket = "federated-engineers-${var.environment}-${var.team}-${var.bucket-use-case}"
-
-  tags = merge(local.common_tags, {
-    Name    = "federated-engineers-${var.environment}-${var.team}-${var.bucket-use-case}",
-    Service = "${var.service}"
-  })
-}
-
-resource "aws_s3_bucket_versioning" "versioning" {
-  bucket = aws_s3_bucket.federated-engineers-bucket.id
-
-  versioning_configuration {
-    status = var.versioning
-  }
+module "sftp_bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "alpen_sftp"
+  service         = "airflow"
+  versioning      = "Disabled"
+  environment     = var.environment
 }
 
 resource "aws_iam_role" "sftp_user_role" {
@@ -35,7 +27,7 @@ resource "aws_iam_role" "sftp_user_role" {
     ]
   })
 
-  tags = merge(local.common_tags, { Name = "${var.bucket-use-case}" })
+  tags = merge(local.common_tags, { Name = "${module.sftp_bucket.bucket_name}" })
 }
 
 resource "aws_iam_role_policy" "sftp_user_policy" {
@@ -52,7 +44,7 @@ resource "aws_iam_role_policy" "sftp_user_policy" {
           "s3:ListBucket",
           "s3:GetBucketLocation"
         ]
-        Resource = "${aws_s3_bucket.federated-engineers-bucket.arn}"
+        Resource = "${module.sftp_bucket.arn}"
       },
       {
         Sid    = "ManageObjects"
@@ -62,7 +54,7 @@ resource "aws_iam_role_policy" "sftp_user_policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "${aws_s3_bucket.federated-engineers-bucket.arn}/vendor/*"
+        Resource = "${module.sftp_bucket.arn}/vendor/*"
       }
     ]
   })
@@ -74,7 +66,7 @@ resource "aws_transfer_server" "alpen_server" {
   identity_provider_type = "SERVICE_MANAGED"
   domain                 = "S3"
 
-  tags = merge(local.common_tags, { Name = "${var.bucket-use-case}" })
+  tags = merge(local.common_tags, { Name = "${module.sftp_bucket.bucket_name}" })
 }
 
 resource "aws_transfer_user" "vendor" {
