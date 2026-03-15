@@ -1,7 +1,7 @@
 module "sftp_bucket" {
   source          = "../modules/s3-bucket"
   team            = "elite"
-  bucket-use-case = "alpen_sftp"
+  bucket-use-case = "alpen-sftp"
   service         = "airflow"
   versioning      = "Disabled"
   environment     = var.environment
