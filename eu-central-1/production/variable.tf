@@ -21,3 +21,34 @@ variable "project" {
   type        = string
   default     = "Federated-Engineers"
 }
+
+variable "bucket-use-case" {
+  description = "The nature of the project"
+  type        = string
+  default     = "alpen_sftp-server"
+}
+
+variable "service" {
+  description = "The service using the bucket"
+  type        = string
+  default     = "transfer_family"
+}
+
+variable "versioning" {
+  description = "versioning status for the S3 bucket"
+  type        = string
+  default     = "Disabled"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
