@@ -20,7 +20,7 @@ resource "aws_iam_policy" "airflow_policy" {
           module.balearic_bucket.arn,
           "${module.balearic_bucket.arn}/*",
           "arn:aws:s3:::gdm-raw-data",
-          "arn:aws:s3:::gdm-raw-data/*",
+          "arn:aws:s3:::gdm-raw-data/*"
         ]
       }
     ]
