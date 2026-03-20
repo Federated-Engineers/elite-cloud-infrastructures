@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "airflow_policy" {
   name        = "elite-airflow-access-policy"
-  description = "Allow Airflow to access buckets"
+  description = "Allow Airflow to access aws resources"
 
   policy = jsonencode({
     Version = "2012-10-17"
