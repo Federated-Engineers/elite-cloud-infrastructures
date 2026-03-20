@@ -22,18 +22,8 @@ resource "aws_iam_policy" "airflow_s3_policy" {
           "arn:aws:s3:::gdm-raw-data",
           "arn:aws:s3:::gdm-raw-data/*"
         ]
-      }
-    ]
-  })
-}
+      },
 
-resource "aws_iam_policy" "airflow_ssm_policy" {
-  name        = "elite-airflow-ssm-access-policy"
-  description = "Allow Airflow to access SSM parameters"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
       {
         Sid    = "ReadSSMParameters"
         Effect = "Allow"
