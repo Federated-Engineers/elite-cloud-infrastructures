@@ -1,6 +1,6 @@
-resource "aws_iam_policy" "airflow_s3_policy" {
-  name        = "elite-airflow-s3-access-policy"
-  description = "Allow Airflow to access S3 buckets"
+resource "aws_iam_policy" "airflow_policy" {
+  name        = "elite-airflow-access-policy"
+  description = "Allow Airflow to access buckets"
 
   policy = jsonencode({
     Version = "2012-10-17"
