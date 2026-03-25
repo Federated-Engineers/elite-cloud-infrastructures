@@ -25,4 +25,12 @@ module "balearic_bucket" {
   environment     = var.environment
 }
 
+module "baltilogix-compacted-bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "baltilogix"
+  service         = "airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
 
