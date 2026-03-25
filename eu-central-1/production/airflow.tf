@@ -20,7 +20,9 @@ resource "aws_iam_policy" "airflow_policy" {
           module.balearic_bucket.arn,
           "${module.balearic_bucket.arn}/*",
           "arn:aws:s3:::gdm-raw-data",
-          "arn:aws:s3:::gdm-raw-data/*"
+          "arn:aws:s3:::gdm-raw-data/*",
+          module.baltilogix-compacted-bucket.arn,
+          "${module.baltilogix-compacted-bucket.arn}/*"
         ]
       },
 
