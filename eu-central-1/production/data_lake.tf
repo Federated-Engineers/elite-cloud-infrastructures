@@ -34,3 +34,20 @@ module "baltilogix-compacted-bucket" {
   environment     = var.environment
 }
 
+module "scheldt-raw-data" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "scheldt"
+  service         = "airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
+
+module "scheldt-curated-data" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "scheldt"
+  service         = "airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}

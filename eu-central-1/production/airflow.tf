@@ -22,7 +22,11 @@ resource "aws_iam_policy" "airflow_policy" {
           "arn:aws:s3:::gdm-raw-data",
           "arn:aws:s3:::gdm-raw-data/*",
           module.baltilogix-compacted-bucket.arn,
-          "${module.baltilogix-compacted-bucket.arn}/*"
+          "${module.baltilogix-compacted-bucket.arn}/*",
+          module.scheldt-raw-data.arn,
+          "${module.scheldt-raw-data.arn}/*",
+          module.scheldt-curated-data.arn,
+          "${module.scheldt-curated-data.arn}/*"
         ]
       },
 
@@ -35,6 +39,24 @@ resource "aws_iam_policy" "airflow_policy" {
         ]
         Resource = [
           "arn:aws:ssm:eu-central-1:049417293525:parameter/production/google-service-account/credentials",
+        ]
+      },
+
+      {
+        Sid    = "GlueCrawlerAndMetadataAccess"
+        Effect = "Allow"
+        Action = [
+          "glue:GetDatabase",
+          "glue:GetTable",
+          "glue:GetPartitions",
+          "glue:StartCrawler",
+          "glue:GetCrawler",
+          "glue:GetCrawlerMetrics"
+        ]
+        Resource = [
+          "${module.scheldt-raw-data.arn}/*",
+          module.scheldt-curated-data.arn,
+          "${module.scheldt-curated-data.arn}/*"
         ]
       }
     ]
