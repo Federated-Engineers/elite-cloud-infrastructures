@@ -27,6 +27,18 @@ resource "aws_iam_policy" "airflow_policy" {
       },
 
       {
+        Sid    = "DeleteRawDataAfterCompaction"
+        Effect = "Allow"
+        Action = [
+          "s3:DeleteObject",
+          "s3:DeleteObjectVersion"
+        ]
+        Resource = [
+          "arn:aws:s3:::baltilogix-raw-ingestion/raw-ingestion/daily-stream/*"
+        ]
+      },
+
+      {
         Sid    = "ReadSSMParameters"
         Effect = "Allow"
         Action = [
