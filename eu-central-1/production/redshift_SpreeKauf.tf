@@ -8,18 +8,6 @@ resource "random_password" "password" {
   override_special = "!$%&*()-_=+[]{}<>:?"
 }
 
-# Create KMS key for encrypting Redshift master password in SSM Parameter Store
-resource "aws_kms_key" "redshift_predictive" {
-  description             = "KMS key for Redshift SSM parameters"
-  deletion_window_in_days = 7
-  enable_key_rotation     = true # Rotate the key annually — best practice
-}
-
-# Create an alias for the KMS key to make it easier to reference
-resource "aws_kms_alias" "redshift" {
-  name          = "alias/redshift-predictive-ssm"
-  target_key_id = aws_kms_key.redshift_predictive.key_id
-}
 
 # Store the Redshift master password securely in SSM Parameter Store using the KMS key for encryption
 resource "aws_ssm_parameter" "redshift_master_password" {
@@ -27,7 +15,11 @@ resource "aws_ssm_parameter" "redshift_master_password" {
   description = "This is the master password for SpreeKauf Redshift cluster"
   type        = "SecureString"
   value       = random_password.password.result
-  key_id      = aws_kms_key.redshift_predictive.arn
+}
+
+data "aws_ssm_parameter" "redshift_master_password" {
+  name            = "/prod/redshift-predictive/master-password"
+  with_decryption = true                         
 }
 
 # Store the Redshift master username securely in SSM Parameter Store using the KMS key for encryption
@@ -38,6 +30,9 @@ resource "aws_ssm_parameter" "redshift_master_username" {
   value       = "redshift_admin_user"
 }
 
+data "aws_ssm_parameter" "redshift_master_username" {
+  name = "/prod/redshift-predictive/master-username"
+}
 
 resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
   name        = "parameter-group-spreekauf-terraform"
