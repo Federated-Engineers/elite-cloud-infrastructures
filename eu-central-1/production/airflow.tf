@@ -23,10 +23,8 @@ resource "aws_iam_policy" "airflow_policy" {
           "arn:aws:s3:::gdm-raw-data/*",
           module.baltilogix-compacted-bucket.arn,
           "${module.baltilogix-compacted-bucket.arn}/*",
-          module.scheldt-raw-data.arn,
-          "${module.scheldt-raw-data.arn}/*",
-          module.scheldt-curated-data.arn,
-          "${module.scheldt-curated-data.arn}/*"
+          module.scheldt-river-bucket.arn,
+          "${module.scheldt-river-bucket.arn}/*"
         ]
       },
 
@@ -54,9 +52,8 @@ resource "aws_iam_policy" "airflow_policy" {
           "glue:GetCrawlerMetrics"
         ]
         Resource = [
-          "${module.scheldt-raw-data.arn}/*",
-          module.scheldt-curated-data.arn,
-          "${module.scheldt-curated-data.arn}/*"
+          "${module.scheldt-river-bucket.arn}/*",
+          module.scheldt-river-bucket.arn
         ]
       }
     ]
