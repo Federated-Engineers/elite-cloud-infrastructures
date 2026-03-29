@@ -1,5 +1,4 @@
 # creatinng random password for Redshift master user and storing it securely in SSM Parameter Store with KMS encryption
-
 resource "random_password" "password" {
   length           = 16
   special          = true
@@ -7,7 +6,6 @@ resource "random_password" "password" {
   numeric          = true
   override_special = "!$%&*()-_=+[]{}<>:?"
 }
-
 
 # Store the Redshift master password securely in SSM Parameter Store using the KMS key for encryption
 resource "aws_ssm_parameter" "redshift_master_password" {
@@ -41,11 +39,6 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
   description = "Custom parameter group for SpreeKauf Redshift cluster"
 
   parameter {
-    name  = "require_ssl"
-    value = "true"
-  }
-
-  parameter {
     name = "wlm_json_configuration"
     value = jsonencode([
       {
@@ -60,7 +53,7 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
 
       {
         name                = "analyst_adhoc_queue"
-        query_concurrency   = 5
+        query_concurrency   = 2
         concurrency_scaling = "auto"
         auto_wlm            = true
         queue_type          = "auto"
@@ -114,7 +107,7 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
 
   parameter {
     name  = "max_concurrency_scaling_clusters"
-    value = 5
+    value = 2
   }
 
   parameter {
@@ -196,7 +189,7 @@ resource "aws_redshift_cluster" "spreekauf_predictive_cluster" {
   cluster_identifier           = "spreekauf-predictive"
   node_type                    = "ra3.large"
   cluster_type                 = "multi-node"
-  number_of_nodes              = 2
+  number_of_nodes              = 3
   database_name                = "spreekauf_database"
   master_username              = data.aws_ssm_parameter.redshift_master_username.value
   master_password              = data.aws_ssm_parameter.redshift_master_password.value
