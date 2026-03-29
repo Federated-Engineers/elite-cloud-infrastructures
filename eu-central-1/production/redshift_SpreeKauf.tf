@@ -170,12 +170,14 @@ resource "aws_security_group" "redshift_sg_predictive" {
 resource "aws_security_group_rule" "sg_ingress_https" {
   security_group_id = aws_security_group.redshift_sg_predictive.id
   type              = "ingress"
-  description       = "Allow HTTPS traffic from https, http,SQL,RDS,ssh   block"
-  from_port         = [443, 80, 5439, 543, 22]
-  to_port           = [443, 80, 5439, 5432, 22]
+  description       = "Allow HTTPS traffic"
+  from_port         = 80
+  to_port           = 80
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+
 
 # Egress rules for redshift security group
 resource "aws_security_group_rule" "sg_egress_all" {
