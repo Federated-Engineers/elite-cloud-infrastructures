@@ -22,19 +22,9 @@ resource "aws_iam_policy" "airflow_policy" {
           "arn:aws:s3:::gdm-raw-data",
           "arn:aws:s3:::gdm-raw-data/*",
           module.baltilogix-compacted-bucket.arn,
-          "${module.baltilogix-compacted-bucket.arn}/*"
-        ]
-      },
-
-      {
-        Sid    = "DeleteRawDataAfterCompaction"
-        Effect = "Allow"
-        Action = [
-          "s3:DeleteObject",
-          "s3:DeleteObjectVersion"
-        ]
-        Resource = [
-          "arn:aws:s3:::baltilogix-raw-ingestion/raw-ingestion/daily-stream/*"
+          "${module.baltilogix-compacted-bucket.arn}/*",
+          "arn:aws:s3:::baltilogix-raw-ingestion",
+          "arn:aws:s3:::baltilogix-raw-ingestion/*"
         ]
       },
 
