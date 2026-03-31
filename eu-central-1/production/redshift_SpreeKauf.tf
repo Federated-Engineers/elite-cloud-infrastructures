@@ -1,35 +1,29 @@
-# creatinng random password for Redshift master user and storing it securely in SSM Parameter Store with KMS encryption
 resource "random_password" "password" {
   length           = 16
-  special          = true
   min_numeric      = 1
-  numeric          = true
-  override_special = "!$%&*()-_=+[]{}<>:?"
 }
 
-# Store the Redshift master password securely in SSM Parameter Store using the KMS key for encryption
 resource "aws_ssm_parameter" "redshift_master_password" {
-  name        = "/prod/redshift-predictive/master-password"
+  name        = "/production/redshift-SpreeKauf/master-password"
   description = "This is the master password for SpreeKauf Redshift cluster"
   type        = "SecureString"
   value       = random_password.password.result
 }
 
 data "aws_ssm_parameter" "redshift_master_password" {
-  name            = "/prod/redshift-predictive/master-password"
-  with_decryption = true                         
+  name            = "/production/redshift-SpreeKauf/master-password"                       
 }
 
 # Store the Redshift master username securely in SSM Parameter Store using the KMS key for encryption
 resource "aws_ssm_parameter" "redshift_master_username" {
-  name        = "/prod/redshift-predictive/master-username"
+  name        = "/production/redshift-SpreeKauf/master-username"
   description = "This is the master username for SpreeKauf Redshift cluster"
   type        = "String"
   value       = "redshift_admin_user"
 }
 
 data "aws_ssm_parameter" "redshift_master_username" {
-  name = "/prod/redshift-predictive/master-username"
+  name = "/production/redshift-SpreeKauf/master-username"
 }
 
 resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
@@ -42,47 +36,43 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
     name = "wlm_json_configuration"
     value = jsonencode([
       {
-        name        = "etl_queue"
+        name        = "ETL queue"
         priority    = "highest"
         auto_wlm    = true
         queue_type  = "auto"
-        user_group  = ["etl_service_accounts"]
-        user_role   = ["etl_role"]
-        query_group = ["etl", "ingestion", "data_load", "load"]
+        query_group = ["ETL Team"]
       },
 
       {
-        name                = "analyst_adhoc_queue"
-        query_concurrency   = 2
+        name                = "Analyst/Ad-Hoc queue"
         concurrency_scaling = "auto"
         auto_wlm            = true
         queue_type          = "auto"
-        user_role           = ["analyst_role", "adhoc_role"]
-        user_group          = ["analyst", "adhoc_users"]
-        query_group         = ["adhoc", "analyst"]
+        query_group         = ["Analyst Team", "Ad-Hoc Team"]
       },
 
       {
+        name                    = "Short Query Acceleration"
         short_query_acceleration = true
-
       },
 
       {
-        name       = "default_queue"
+        name       = "Query Monitoring Rules Queue"
         auto_wlm   = true
-        priority   = "lowest"
+        priority   = "low"
         queue_type = "auto"
         rules = [
           {
             rule_name = "kill_switch"
             predicate = [
               {
-                metric_name = "query_temp_blocks_to_disk",
+                metric_name = "query_blocks_read",
                 operator    = ">",
-                value       = 2097152
+                value       = 1048575
             }]
             action = "abort"
           },
+
           {
             rule_name = "priority_downgrade_cpu"
             predicate = [
@@ -92,28 +82,22 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
                 value       = 80
               },
               {
-                metric_name = "query_execution_time",
+                metric_name = "query_cpu_time",
                 operator    = ">",
                 value       = 1200
-              }
+              },
+                
             ]
-            action = "hop"
-          }
+            action = "change_query_priority",
+            value =  "lowest"
+            }
+          
         ]
       }
     ])
 
   }
 
-  parameter {
-    name  = "max_concurrency_scaling_clusters"
-    value = 2
-  }
-
-  parameter {
-    name  = "enable_user_activity_logging"
-    value = "true"
-  }
 }
 
 
