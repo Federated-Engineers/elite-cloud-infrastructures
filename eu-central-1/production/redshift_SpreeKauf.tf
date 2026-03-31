@@ -101,49 +101,46 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
 }
 
 
-data "aws_vpc" "selected" {
-  id = var.vpc_id
+data "aws_vpc" "federated_vpc" {
+  id = "vpc-09a5fdb174ed7c060"
 }
 
-data "aws_subnet" "public_a" {
-  id = var.subnet_id_public_a
+data "aws_subnet" "federate_public_a" {
+  vpc_id = data.aws_vpc.federated_vpc.id
+  id = "subnet-0613b8ccd258f4cca"
 }
 
-data "aws_subnet" "public_b" {
-  id = var.subnet_id_public_b
+data "aws_subnet" "federate_private_a" {
+  vpc_id = data.aws_vpc.federated_vpc.id
+  id = "subnet-052bed3cbc24abe15"
 }
 
 
-# Create Redshift Subnet Group
 resource "aws_redshift_subnet_group" "spreekauf_predictive" {
   name        = "spreekauf-predictive-subnet-group"
   description = "Subnet group for SpreeKauf predictive Redshift cluster"
 
   subnet_ids = [
-    data.aws_subnet.public_a.id,
-    data.aws_subnet.public_b.id
+    data.aws_subnet.federate_private_a.id,
+    data.aws_subnet.federate_public_a.id
   ]
-  depends_on = [data.aws_vpc.selected]
-
   tags = {
     Name        = "spreekauf-predictive-subnet-group"
-    Environment = "Dev"
+    Environment = "Prod"
   }
 }
 
 
-# security group for the redshift cluster
 resource "aws_security_group" "redshift_sg_predictive" {
   name        = "redshift-sg-predictive"
   description = "Security group for Redshift cluster"
-  vpc_id      = data.aws_vpc.selected.id
+  vpc_id      = data.aws_vpc.federated_vpc.id
   tags = {
     Name        = "redshift-sg-predictive"
-    Environment = "Dev"
+    Environment = "Prod"
   }
 }
 
-# Ingress rules for redshift security group
 resource "aws_security_group_rule" "sg_ingress_https" {
   security_group_id = aws_security_group.redshift_sg_predictive.id
   type              = "ingress"
@@ -156,7 +153,6 @@ resource "aws_security_group_rule" "sg_ingress_https" {
 
 
 
-# Egress rules for redshift security group
 resource "aws_security_group_rule" "sg_egress_all" {
   security_group_id = aws_security_group.redshift_sg_predictive.id
   type              = "egress"
