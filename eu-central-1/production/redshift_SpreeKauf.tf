@@ -141,17 +141,15 @@ resource "aws_security_group" "redshift_sg_predictive" {
   }
 }
 
-resource "aws_security_group_rule" "sg_ingress_https" {
+resource "aws_security_group_rule" "allow_tls_ipv4" {
   security_group_id = aws_security_group.redshift_sg_predictive.id
   type              = "ingress"
-  description       = "Allow HTTPS traffic"
-  from_port         = 80
-  to_port           = 80
+  description       = "Allow inbound traffic from VPC CIDR block"
+  from_port         = 443
+  to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = data.aws_vpc.federated_vpc.cidr_block
 }
-
-
 
 resource "aws_security_group_rule" "sg_egress_all" {
   security_group_id = aws_security_group.redshift_sg_predictive.id
@@ -169,16 +167,18 @@ resource "aws_redshift_cluster" "spreekauf_predictive_cluster" {
   cluster_identifier           = "spreekauf-predictive"
   node_type                    = "ra3.large"
   cluster_type                 = "multi-node"
-  number_of_nodes              = 3
+  number_of_nodes              = 2
   database_name                = "spreekauf_database"
   master_username              = data.aws_ssm_parameter.redshift_master_username.value
   master_password              = data.aws_ssm_parameter.redshift_master_password.value
-  publicly_accessible          = true
   enhanced_vpc_routing         = true
   cluster_parameter_group_name = aws_redshift_parameter_group.spreekauf_parameter_group.name
   cluster_subnet_group_name    = aws_redshift_subnet_group.spreekauf_predictive.name
   vpc_security_group_ids       = [aws_security_group.redshift_sg_predictive.id]
 
   skip_final_snapshot = false
-  tags                = merge(local.common_tags, { Name = "spreekauf-redshift-cluster" })
+  tags = {
+    Name        = "redshift-cluster-predictive"
+    Environment = "Prod"
+  }
 }
