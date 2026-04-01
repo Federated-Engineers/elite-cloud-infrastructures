@@ -1,30 +1,23 @@
 resource "random_password" "password" {
-  length           = 16
-  min_numeric      = 1
+  length      = 16
+  min_numeric = 1
 }
 
 resource "aws_ssm_parameter" "redshift_master_password" {
-  name        = "/production/redshift-SpreeKauf/master-password"
+  name        = "/production/redshift/SpreeKauf/master-password"
   description = "This is the master password for SpreeKauf Redshift cluster"
   type        = "SecureString"
   value       = random_password.password.result
 }
 
-data "aws_ssm_parameter" "redshift_master_password" {
-  name            = "/production/redshift-SpreeKauf/master-password"                       
-}
-
 # Store the Redshift master username securely in SSM Parameter Store using the KMS key for encryption
 resource "aws_ssm_parameter" "redshift_master_username" {
-  name        = "/production/redshift-SpreeKauf/master-username"
+  name        = "/production/redshift/SpreeKauf/master-username"
   description = "This is the master username for SpreeKauf Redshift cluster"
   type        = "String"
   value       = "redshift_admin_user"
 }
 
-data "aws_ssm_parameter" "redshift_master_username" {
-  name = "/production/redshift-SpreeKauf/master-username"
-}
 
 resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
   name        = "parameter-group-spreekauf-terraform"
@@ -36,11 +29,11 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
     name = "wlm_json_configuration"
     value = jsonencode([
       {
-        name        = "ETL queue"
-        priority    = "highest"
-        auto_wlm    = true
-        queue_type  = "auto"
-        query_group = ["ETL Team"]
+        name       = "ETL queue"
+        priority   = "highest"
+        auto_wlm   = true
+        queue_type = "auto"
+        user_group = ["etl_team"]
       },
 
       {
@@ -48,11 +41,11 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
         concurrency_scaling = "auto"
         auto_wlm            = true
         queue_type          = "auto"
-        query_group         = ["Analyst Team", "Ad-Hoc Team"]
+        user_group          = ["analyst_team", "adhoc_team"]
       },
 
       {
-        name                    = "Short Query Acceleration"
+        name                     = "Short Query Acceleration"
         short_query_acceleration = true
       },
 
@@ -86,12 +79,12 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
                 operator    = ">",
                 value       = 1200
               },
-                
+
             ]
             action = "change_query_priority",
-            value =  "lowest"
-            }
-          
+            value  = "lowest"
+          }
+
         ]
       }
     ])
@@ -102,18 +95,19 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
 
 
 data "aws_vpc" "federated_vpc" {
-  id = "vpc-09a5fdb174ed7c060"
+  id = var.production-vpc
 }
 
 data "aws_subnet" "federate_public_a" {
   vpc_id = data.aws_vpc.federated_vpc.id
-  id = "subnet-0613b8ccd258f4cca"
+  id     = var.production-vpc-subnet-public-a
 }
 
-data "aws_subnet" "federate_private_a" {
+data "aws_subnet" "federate_public_b" {
   vpc_id = data.aws_vpc.federated_vpc.id
-  id = "subnet-052bed3cbc24abe15"
+  id     = var.production-vpc-subnet-public-b
 }
+
 
 
 resource "aws_redshift_subnet_group" "spreekauf_predictive" {
@@ -121,13 +115,10 @@ resource "aws_redshift_subnet_group" "spreekauf_predictive" {
   description = "Subnet group for SpreeKauf predictive Redshift cluster"
 
   subnet_ids = [
-    data.aws_subnet.federate_private_a.id,
+    data.aws_subnet.federate_public_b.id,
     data.aws_subnet.federate_public_a.id
   ]
-  tags = {
-    Name        = "spreekauf-predictive-subnet-group"
-    Environment = "Prod"
-  }
+  tags = merge(local.common_tags)
 }
 
 
@@ -135,20 +126,17 @@ resource "aws_security_group" "redshift_sg_predictive" {
   name        = "redshift-sg-predictive"
   description = "Security group for Redshift cluster"
   vpc_id      = data.aws_vpc.federated_vpc.id
-  tags = {
-    Name        = "redshift-sg-predictive"
-    Environment = "Prod"
-  }
+  tags        = merge(local.common_tags)
 }
 
 resource "aws_security_group_rule" "allow_tls_ipv4" {
   security_group_id = aws_security_group.redshift_sg_predictive.id
   type              = "ingress"
   description       = "Allow inbound traffic from VPC CIDR block"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  cidr_blocks       = data.aws_vpc.federated_vpc.cidr_block
+  from_port         = 0
+  to_port           = 5439
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "sg_egress_all" {
@@ -166,19 +154,15 @@ resource "aws_security_group_rule" "sg_egress_all" {
 resource "aws_redshift_cluster" "spreekauf_predictive_cluster" {
   cluster_identifier           = "spreekauf-predictive"
   node_type                    = "ra3.large"
-  cluster_type                 = "multi-node"
-  number_of_nodes              = 2
+  cluster_type                 = "single-node"
+  number_of_nodes              = 1
   database_name                = "spreekauf_database"
-  master_username              = data.aws_ssm_parameter.redshift_master_username.value
-  master_password              = data.aws_ssm_parameter.redshift_master_password.value
-  enhanced_vpc_routing         = true
+  master_username              = aws_ssm_parameter.redshift_master_username.value
+  master_password              = aws_ssm_parameter.redshift_master_password.value
   cluster_parameter_group_name = aws_redshift_parameter_group.spreekauf_parameter_group.name
   cluster_subnet_group_name    = aws_redshift_subnet_group.spreekauf_predictive.name
   vpc_security_group_ids       = [aws_security_group.redshift_sg_predictive.id]
 
   skip_final_snapshot = false
-  tags = {
-    Name        = "redshift-cluster-predictive"
-    Environment = "Prod"
-  }
+  tags                = merge(local.common_tags, { client = "spreekauf" })
 }
