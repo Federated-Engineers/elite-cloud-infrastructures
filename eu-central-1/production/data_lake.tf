@@ -42,3 +42,8 @@ module "scheldt-river-bucket" {
   versioning      = "Enabled"
   environment     = var.environment
 }
+
+
+resource "aws_glue_catalog_database" "elite-prod" {
+  name = "analytics-prod-catalog"
+}

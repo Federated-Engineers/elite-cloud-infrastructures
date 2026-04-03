@@ -46,10 +46,8 @@ resource "aws_iam_policy" "airflow_policy" {
         Action = [
           "glue:GetDatabase",
           "glue:GetTable",
-          "glue:GetPartitions",
-          "glue:StartCrawler",
-          "glue:GetCrawler",
-          "glue:GetCrawlerMetrics"
+          "glue:CreateTable",
+          "glue:UpdateTable"
         ]
         Resource = [
           "${module.scheldt-river-bucket.arn}/*",
