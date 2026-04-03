@@ -10,7 +10,7 @@ resource "aws_ssm_parameter" "redshift_master_password" {
   value       = random_password.password.result
 }
 
-# Store the Redshift master username securely in SSM Parameter Store using the KMS key for encryption
+
 resource "aws_ssm_parameter" "redshift_master_username" {
   name        = "/production/redshift/SpreeKauf/master-username"
   description = "This is the master username for SpreeKauf Redshift cluster"
