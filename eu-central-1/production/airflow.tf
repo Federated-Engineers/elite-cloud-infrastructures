@@ -43,7 +43,7 @@ resource "aws_iam_policy" "airflow_policy" {
       },
 
       {
-        Sid    = "GlueCrawlerAndMetadataAccess"
+        Sid    = "GlueActions"
         Effect = "Allow"
         Action = [
           "glue:*"
