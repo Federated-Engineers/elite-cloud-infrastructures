@@ -24,7 +24,9 @@ resource "aws_iam_policy" "airflow_policy" {
           module.baltilogix-compacted-bucket.arn,
           "${module.baltilogix-compacted-bucket.arn}/*",
           "arn:aws:s3:::baltilogix-raw-ingestion",
-          "arn:aws:s3:::baltilogix-raw-ingestion/*"
+          "arn:aws:s3:::baltilogix-raw-ingestion/*",
+          module.Horlogerie_de_Genève_bucket.arn,
+          "${module.Horlogerie_de_Genève_bucket.arn}/*"
         ]
       },
 
