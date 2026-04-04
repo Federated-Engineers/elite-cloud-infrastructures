@@ -34,3 +34,16 @@ module "baltilogix-compacted-bucket" {
   environment     = var.environment
 }
 
+module "scheldt-river-bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "scheldt"
+  service         = "airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
+
+
+resource "aws_glue_catalog_database" "elite-prod" {
+  name = "scheldt-prod-catalog"
+}
