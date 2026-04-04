@@ -46,15 +46,9 @@ resource "aws_iam_policy" "airflow_policy" {
         Sid    = "GlueCrawlerAndMetadataAccess"
         Effect = "Allow"
         Action = [
-          "glue:GetDatabase",
-          "glue:GetTable",
-          "glue:CreateTable",
-          "glue:UpdateTable"
+          "glue:*"
         ]
-        Resource = [
-          "${module.scheldt-river-bucket.arn}/*",
-          module.scheldt-river-bucket.arn
-        ]
+        Resource = ["*"]
       }
     ]
   })

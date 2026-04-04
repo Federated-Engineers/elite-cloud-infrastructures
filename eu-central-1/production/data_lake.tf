@@ -45,5 +45,5 @@ module "scheldt-river-bucket" {
 
 
 resource "aws_glue_catalog_database" "elite-prod" {
-  name = "analytics-prod-catalog"
+  name = "scheldt-prod-catalog"
 }
