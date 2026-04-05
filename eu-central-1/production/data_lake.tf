@@ -48,7 +48,7 @@ resource "aws_glue_catalog_database" "elite_prod" {
   name = "scheldt-production-database"
 
   tags = merge(local.common_tags, {
-    Name    = "federated-engineers-production-elite-scheldt",
+    Owner    = "Scheldt River Logistics",
     Service = "elite-airflow"
   })
 }
