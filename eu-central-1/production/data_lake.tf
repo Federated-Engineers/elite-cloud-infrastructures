@@ -34,3 +34,21 @@ module "baltilogix-compacted-bucket" {
   environment     = var.environment
 }
 
+module "scheldt-river-bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "scheldt"
+  service         = "elite-airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
+
+
+resource "aws_glue_catalog_database" "elite_prod" {
+  name = "scheldt-production-database"
+
+  tags = merge(local.common_tags, {
+    Owner   = "Scheldt-River-Logistics",
+    Service = "elite-airflow"
+  })
+}
