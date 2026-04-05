@@ -26,7 +26,9 @@ resource "aws_iam_policy" "airflow_policy" {
           "arn:aws:s3:::baltilogix-raw-ingestion",
           "arn:aws:s3:::baltilogix-raw-ingestion/*",
           module.scheldt-river-bucket.arn,
-          "${module.scheldt-river-bucket.arn}/*"
+          "${module.scheldt-river-bucket.arn}/*",
+          module.scardinavas_bucket.arn,
+          "${module.scardinavas_bucket.arn}/*"
         ]
       },
 
