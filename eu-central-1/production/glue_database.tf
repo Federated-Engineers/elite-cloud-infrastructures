@@ -16,7 +16,7 @@ resource "aws_glue_catalog_database" "scardinavas_db" {
   })
 }
 resource "aws_glue_catalog_database" "Horlogerie_de_Genève_db" {
-  name        = "Horlogerie_de_Genève"
+  name = "Horlogerie_de_Genève"
 
   tags = merge(local.common_tags, {
     Owner   = "Horlogerie_de_Genève",
