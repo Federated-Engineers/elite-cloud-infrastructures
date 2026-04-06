@@ -51,3 +51,12 @@ module "scardinavas_bucket" {
   versioning      = "Enabled"
   environment     = var.environment
 }
+
+module "Horlogerie_de_Genève_bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "Horlogerie_de_Genève"
+  service         = "airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
