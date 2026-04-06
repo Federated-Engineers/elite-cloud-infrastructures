@@ -28,9 +28,7 @@ resource "aws_iam_policy" "airflow_policy" {
           module.scheldt-river-bucket.arn,
           "${module.scheldt-river-bucket.arn}/*",
           module.scardinavas_bucket.arn,
-          "${module.scardinavas_bucket.arn}/*",
-          module.horlogerie_de_genève_bucket.arn,
-          "${module.horlogerie_de_genève_bucket.arn}/*"
+          "${module.scardinavas_bucket.arn}/*"
         ]
       },
 
