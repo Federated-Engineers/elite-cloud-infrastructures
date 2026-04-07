@@ -30,7 +30,9 @@ resource "aws_iam_policy" "airflow_policy" {
           module.scardinavas_bucket.arn,
           "${module.scardinavas_bucket.arn}/*",
           module.horlogerie_de_geneve_bucket.arn,
-          "${module.horlogerie_de_geneve_bucket.arn}/*"
+          "${module.horlogerie_de_geneve_bucket.arn}/*",
+          module.lumina_bricks_properties_bucket.arn,
+          "${module.lumina_bricks_properties_bucket.arn}/*"
         ]
       },
 
