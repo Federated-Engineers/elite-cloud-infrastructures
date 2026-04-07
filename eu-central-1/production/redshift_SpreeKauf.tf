@@ -185,6 +185,7 @@ resource "aws_redshift_cluster" "spreekauf_predictive_cluster" {
   cluster_type                 = "single-node"
   number_of_nodes              = 1
   database_name                = "spreekauf_database"
+  publicly_accessible          = true
   master_username              = data.aws_ssm_parameter.redshift_master_username.value
   master_password              = aws_ssm_parameter.redshift_master_password.value
   cluster_parameter_group_name = aws_redshift_parameter_group.spreekauf_parameter_group.name
