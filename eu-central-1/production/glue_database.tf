@@ -16,10 +16,10 @@ resource "aws_glue_catalog_database" "scardinavas_db" {
   })
 }
 resource "aws_glue_catalog_database" "horlogerie_de_geneve_db" {
-  name = "horlogerie_de_geneve"
+  name = "horlogerie-de-geneve"
 
   tags = merge(local.common_tags, {
-    Owner   = "horlogerie_de_geneve",
+    Owner   = "horlogerie-de-geneve",
     Service = "elite-airflow"
   })
 }
