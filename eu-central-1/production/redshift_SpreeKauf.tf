@@ -192,6 +192,6 @@ resource "aws_redshift_cluster" "spreekauf_predictive_cluster" {
   cluster_subnet_group_name    = aws_redshift_subnet_group.spreekauf_predictive.name
   vpc_security_group_ids       = [aws_security_group.redshift_sg_predictive.id]
 
-  skip_final_snapshot = false
+  skip_final_snapshot = true
   tags                = merge(local.common_tags, { client = "spreekauf" })
 }
