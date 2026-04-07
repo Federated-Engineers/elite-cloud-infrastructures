@@ -4,18 +4,15 @@ resource "random_password" "password" {
 }
 
 resource "aws_ssm_parameter" "redshift_master_password" {
-  name        = "/production/redshift/SpreeKauf/master-password"
+  name        = "/production/elite/redshift/SpreeKauf/master-password"
   description = "This is the master password for SpreeKauf Redshift cluster"
   type        = "SecureString"
   value       = random_password.password.result
 }
 
 
-resource "aws_ssm_parameter" "redshift_master_username" {
-  name        = "/production/redshift/SpreeKauf/master-username"
-  description = "This is the master username for SpreeKauf Redshift cluster"
-  type        = "String"
-  value       = "redshift_admin_user"
+data "aws_ssm_parameter" "redshift_master_username" {
+  name = "/production/elite/redshift-SpreeKauf/master-username"
 }
 
 
@@ -33,15 +30,38 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
         priority   = "highest"
         auto_wlm   = true
         queue_type = "auto"
-        user_group = ["etl_team"]
+        user_group = ["etl"]
+      },
+
+      {
+        name                = "bi queue"
+        priority            = "high"
+        concurrency_scaling = "auto"
+        auto_wlm            = true
+        queue_type          = "auto"
+        user_group          = ["bi"]
       },
 
       {
         name                = "Analyst/Ad-Hoc queue"
+        priority            = "high"
         concurrency_scaling = "auto"
         auto_wlm            = true
         queue_type          = "auto"
-        user_group          = ["analyst_team", "adhoc_team"]
+        user_group          = ["analyst_team"]
+        rules = [
+          {
+            rule_name = "blocks_read_query"
+            predicate = [
+              {
+                metric_name = "query_blocks_read",
+                operator    = ">",
+                value       = 5000
+              }
+            ]
+            action = "log"
+          }
+        ]
       },
 
       {
@@ -50,9 +70,9 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
       },
 
       {
-        name       = "Query Monitoring Rules Queue"
+        name       = "High Scan Query Queue"
         auto_wlm   = true
-        priority   = "low"
+        priority   = "Normal"
         queue_type = "auto"
         rules = [
           {
@@ -64,8 +84,16 @@ resource "aws_redshift_parameter_group" "spreekauf_parameter_group" {
                 value       = 1048575
             }]
             action = "abort"
-          },
+        }]
+      },
 
+
+      {
+        name       = "High CPU Usage and Time Queue"
+        auto_wlm   = true
+        priority   = "low"
+        queue_type = "auto"
+        rules = [
           {
             rule_name = "priority_downgrade_cpu"
             predicate = [
@@ -157,7 +185,7 @@ resource "aws_redshift_cluster" "spreekauf_predictive_cluster" {
   cluster_type                 = "single-node"
   number_of_nodes              = 1
   database_name                = "spreekauf_database"
-  master_username              = aws_ssm_parameter.redshift_master_username.value
+  master_username              = data.aws_ssm_parameter.redshift_master_username.value
   master_password              = aws_ssm_parameter.redshift_master_password.value
   cluster_parameter_group_name = aws_redshift_parameter_group.spreekauf_parameter_group.name
   cluster_subnet_group_name    = aws_redshift_subnet_group.spreekauf_predictive.name
