@@ -22,7 +22,15 @@ resource "aws_iam_policy" "airflow_policy" {
           "arn:aws:s3:::gdm-raw-data",
           "arn:aws:s3:::gdm-raw-data/*",
           module.baltilogix-compacted-bucket.arn,
-          "${module.baltilogix-compacted-bucket.arn}/*"
+          "${module.baltilogix-compacted-bucket.arn}/*",
+          "arn:aws:s3:::baltilogix-raw-ingestion",
+          "arn:aws:s3:::baltilogix-raw-ingestion/*",
+          module.scheldt-river-bucket.arn,
+          "${module.scheldt-river-bucket.arn}/*",
+          module.scardinavas_bucket.arn,
+          "${module.scardinavas_bucket.arn}/*",
+          module.horlogerie_de_geneve_bucket.arn,
+          "${module.horlogerie_de_geneve_bucket.arn}/*"
         ]
       },
 
@@ -36,6 +44,15 @@ resource "aws_iam_policy" "airflow_policy" {
         Resource = [
           "arn:aws:ssm:eu-central-1:049417293525:parameter/production/google-service-account/credentials",
         ]
+      },
+
+      {
+        Sid    = "GlueActions"
+        Effect = "Allow"
+        Action = [
+          "glue:*"
+        ]
+        Resource = ["*"]
       }
     ]
   })
