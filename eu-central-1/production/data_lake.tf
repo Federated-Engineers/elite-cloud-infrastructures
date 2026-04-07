@@ -68,5 +68,5 @@ module "lumina_bricks_properties_bucket" {
   service         = "airflow"
   versioning      = "Enabled"
   environment     = var.environment
-  
+
 }
