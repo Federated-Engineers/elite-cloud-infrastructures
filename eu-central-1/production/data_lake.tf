@@ -52,10 +52,10 @@ module "scardinavas_bucket" {
   environment     = var.environment
 }
 
-module "horlogerie_de_genève_bucket" {
+module "horlogerie_de_geneve_bucket" {
   source          = "../modules/s3-bucket"
   team            = "elite"
-  bucket-use-case = "horlogerie_de_genève"
+  bucket-use-case = "horlogerie_de_geneve"
   service         = "airflow"
   versioning      = "Enabled"
   environment     = var.environment
