@@ -60,3 +60,12 @@ module "horlogerie_de_geneve_bucket" {
   versioning      = "Enabled"
   environment     = var.environment
 }
+
+module "liffey_luxury_bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "liffey-luxury"
+  service         = "elite-airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}

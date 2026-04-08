@@ -23,3 +23,12 @@ resource "aws_glue_catalog_database" "horlogerie_de_geneve_db" {
     Service = "elite-airflow"
   })
 }
+
+resource "aws_glue_catalog_database" "liffey_luxury_db" {
+  name = "elite-liffey-luxury"
+
+  tags = merge(local.common_tags, {
+    Owner   = "liffey-luxury",
+    Service = "elite-airflow"
+  })
+}
