@@ -61,7 +61,7 @@ module "horlogerie_de_geneve_bucket" {
   environment     = var.environment
 }
 
-module "liffey-luxury-bucket" {
+module "liffey_luxury_bucket" {
   source          = "../modules/s3-bucket"
   team            = "elite"
   bucket-use-case = "liffey-luxury"

@@ -25,7 +25,7 @@ resource "aws_glue_catalog_database" "horlogerie_de_geneve_db" {
 }
 
 resource "aws_glue_catalog_database" "liffey_luxury_db" {
-  name = "liffey-luxury"
+  name = "elite-liffey-luxury"
 
   tags = merge(local.common_tags, {
     Owner   = "liffey-luxury",
