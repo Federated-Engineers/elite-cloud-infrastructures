@@ -55,6 +55,15 @@ resource "aws_iam_policy" "airflow_policy" {
           "glue:*"
         ]
         Resource = ["*"]
+      },
+      {
+        Sid    = "DenyGlueCrawlersAndJobs"
+        Effect = "Deny"
+        Action = [
+          "glue:*Crawler*",
+          "glue:*Job*"
+        ]
+        Resource = ["*"]
       }
     ]
   })
