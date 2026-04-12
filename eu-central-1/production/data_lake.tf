@@ -68,5 +68,4 @@ module "lumina_bricks_properties_bucket" {
   service         = "elite-airflow"
   versioning      = "Enabled"
   environment     = var.environment
-
 }
