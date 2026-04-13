@@ -24,6 +24,24 @@ resource "aws_iam_policy" "staging_bucket_rw" {
         Resource = [
           "${module.elite_engineers_staging_zone.arn}/*"
         ]
+      },
+
+      {
+        Sid    = "GlueActions"
+        Effect = "Allow"
+        Action = [
+          "glue:*"
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "DenyGlueCrawlersAndJobs"
+        Effect = "Deny"
+        Action = [
+          "glue:*Crawler*",
+          "glue:*Job*"
+        ]
+        Resource = ["*"]
       }
     ]
   })
@@ -58,5 +76,3 @@ resource "aws_ssm_parameter" "staging_secret_key" {
   type  = "SecureString"
   value = aws_iam_access_key.airflow_dev_secret_key.secret
 }
-
-
