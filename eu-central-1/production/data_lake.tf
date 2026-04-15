@@ -69,3 +69,12 @@ module "liffey_luxury_bucket" {
   versioning      = "Enabled"
   environment     = var.environment
 }
+
+module "athena_query_results_bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "athena-query-results"
+  service         = "elite-airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
