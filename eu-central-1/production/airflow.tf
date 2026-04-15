@@ -32,9 +32,7 @@ resource "aws_iam_policy" "airflow_policy" {
           module.horlogerie_de_geneve_bucket.arn,
           "${module.horlogerie_de_geneve_bucket.arn}/*",
           module.liffey_luxury_bucket.arn,
-          "${module.liffey_luxury_bucket.arn}/*",
-          module.athena_query_results_bucket.arn,
-          "${module.athena_query_results_bucket.arn}/*"
+          "${module.liffey_luxury_bucket.arn}/*"
         ]
       },
 

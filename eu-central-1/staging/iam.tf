@@ -10,8 +10,7 @@ resource "aws_iam_policy" "staging_bucket_rw" {
         Effect = "Allow"
         Action = "s3:ListBucket"
         Resource = [
-          module.elite_engineers_staging_zone.arn,
-          module.elite_engineers_staging_athena_query_results.arn
+          module.elite_engineers_staging_zone.arn
         ]
       },
       {
@@ -23,8 +22,7 @@ resource "aws_iam_policy" "staging_bucket_rw" {
           "s3:DeleteObject"
         ]
         Resource = [
-          "${module.elite_engineers_staging_zone.arn}/*",
-          "${module.elite_engineers_staging_athena_query_results.arn}/*"
+          "${module.elite_engineers_staging_zone.arn}/*"
         ]
       },
 
