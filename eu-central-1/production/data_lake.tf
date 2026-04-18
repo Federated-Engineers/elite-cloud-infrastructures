@@ -61,6 +61,14 @@ module "horlogerie_de_geneve_bucket" {
   environment     = var.environment
 }
 
+module "lumina_bricks_properties_bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "lumina-bricks-properties"
+  service         = "elite-airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
 module "liffey_luxury_bucket" {
   source          = "../modules/s3-bucket"
   team            = "elite"
