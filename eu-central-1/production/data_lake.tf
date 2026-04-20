@@ -86,3 +86,13 @@ module "athena_query_results_bucket" {
   versioning      = "Enabled"
   environment     = var.environment
 }
+
+module "mare_viva_bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "mare-viva"
+  service         = "airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
+
