@@ -32,3 +32,12 @@ resource "aws_glue_catalog_database" "liffey_luxury_db" {
     Service = "elite-airflow"
   })
 }
+
+resource "aws_glue_catalog_database" "mare_viva_db" {
+  name = "elite-mare-viva"
+
+  tags = merge(local.common_tags, {
+    Owner   = "mare-viva",
+    Service = "elite-airflow"
+  })
+}
