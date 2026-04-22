@@ -33,8 +33,8 @@ resource "aws_iam_policy" "airflow_policy" {
           "${module.horlogerie_de_geneve_bucket.arn}/*",
           module.liffey_luxury_bucket.arn,
           "${module.liffey_luxury_bucket.arn}/*",
-          module.lumina_bricks_bucket.arn,
-          "${module.lumina_bricks_bucket.arn}/*"
+          module.lumina_bricks_properties_bucket.arn,
+          "${module.lumina_bricks_properties_bucket.arn}/*"
         ]
       },
 
