@@ -62,3 +62,59 @@ resource "aws_iam_policy" "airflow_policy" {
     ]
   })
 }
+
+data "aws_iam_policy_document" "allow_elite_query_results" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket"
+    ]
+
+    resources = [
+      "arn:aws:s3:::${module.athena_query_results_bucket.bucket_name}",
+      "arn:aws:s3:::${module.athena_query_results_bucket.bucket_name}/*"
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "deny_elite_query_results" {
+  statement {
+    effect = "Deny"
+
+    actions = [
+      "s3:DeleteObject",
+      "s3:DeleteBucket"
+    ]
+
+    resources = [
+      "arn:aws:s3:::${module.athena_query_results_bucket.bucket_name}",
+      "arn:aws:s3:::${module.athena_query_results_bucket.bucket_name}/*"
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "deny_other_workgroups" {
+  statement {
+    effect = "Deny"
+
+    actions = [
+      "athena:StartQueryExecution",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:UpdateWorkGroup",
+      "athena:GetWorkGroup",
+      "athena:ListWorkGroups"
+    ]
+
+    resources = ["*"]
+
+    condition {
+      test     = "StringNotEquals"
+      variable = "athena:WorkGroup"
+      values   = ["elite_team"]
+    }
+  }
+}
