@@ -8,10 +8,6 @@ resource "aws_athena_workgroup" "elite_team" {
     engine_version {
       selected_engine_version = "Athena engine version 3"
     }
-
-    result_configuration {
-      output_location = "s3://${module.athena_query_results_bucket.bucket_name}/${var.environment}/queries/"
-    }
   }
 
   tags = {
