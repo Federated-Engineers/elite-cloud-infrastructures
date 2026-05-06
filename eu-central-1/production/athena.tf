@@ -8,14 +8,13 @@ resource "aws_athena_workgroup" "elite_team" {
     engine_version {
       selected_engine_version = "Athena engine version 3"
     }
-  }
 
-  result_configuration {
+    result_configuration {
       managed_query_results_configuration {
         enabled = true
       }
     }
-  
+  }
 
   tags = {
     Team        = "elite"
