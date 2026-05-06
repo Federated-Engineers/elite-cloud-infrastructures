@@ -9,8 +9,8 @@ resource "aws_athena_workgroup" "elite_team" {
       selected_engine_version = "Athena engine version 3"
     }
 
-     managed_query_results_configuration {
-      enabled = true
+    managed_query_results_configuration {
+     enabled = true
       }
   }
 
