@@ -76,3 +76,26 @@ resource "aws_ssm_parameter" "staging_secret_key" {
   type  = "SecureString"
   value = aws_iam_access_key.airflow_dev_secret_key.secret
 }
+
+
+data "aws_iam_policy_document" "deny_other_workgroups" {
+  statement {
+    effect = "Deny"
+
+    actions = [
+      "athena:StartQueryExecution",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:UpdateWorkGroup",
+      "athena:GetWorkGroup"
+    ]
+
+    resources = ["*"]
+
+    condition {
+      test     = "StringNotEquals"
+      variable = "athena:WorkGroup"
+      values   = ["elite_team"]
+    }
+  }
+}
