@@ -10,7 +10,7 @@ resource "aws_athena_workgroup" "elite_team" {
     }
 
     managed_query_results_configuration {
-     enabled = true
+      enabled = true
       }
   }
 
