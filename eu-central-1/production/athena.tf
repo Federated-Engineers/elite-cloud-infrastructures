@@ -10,6 +10,13 @@ resource "aws_athena_workgroup" "elite_team" {
     }
   }
 
+  result_configuration {
+      managed_query_results_configuration {
+        enabled = true
+      }
+    }
+  
+
   tags = {
     Team        = "elite"
     Environment = var.environment
