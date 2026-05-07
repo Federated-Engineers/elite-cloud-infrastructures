@@ -40,3 +40,40 @@ variable "production-vpc-subnet-public-b" {
   default     = "subnet-0af2d376a426b58bb"
 }
 
+variable "snowflake_account" {
+  description = "Snowflake account identifier used for dbt authentication"
+  type        = string
+  sensitive   = true
+}
+
+variable "snowflake_user" {
+  description = "Snowflake username used by dbt in CI/CD pipelines"
+  type        = string
+  sensitive   = true
+}
+
+variable "snowflake_password" {
+  description = "Snowflake password used by dbt in CI/CD pipelines"
+  type        = string
+  sensitive   = true
+}
+
+variable "snowflake_database" {
+  description = "Target Snowflake database for dbt transformations"
+  type        = string
+}
+
+variable "snowflake_warehouse" {
+  description = "Snowflake warehouse used to execute dbt workloads"
+  type        = string
+}
+
+variable "snowflake_schema" {
+  description = "Snowflake schema where dbt models will be materialized"
+  type        = string
+}
+
+variable "snowflake_role" {
+  description = "Snowflake role assigned to the dbt execution user"
+  type        = string
+}
