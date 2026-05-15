@@ -17,8 +17,7 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values = ["repo:Federated-Engineers/*",
-      "repo:HakeemSalaudeen/*"]
+      values = ["repo:Federated-Engineers/*"]
     }
 
     condition {
@@ -56,7 +55,7 @@ data "aws_iam_policy_document" "ecr_push_policy" {
       "ecr:CompleteLayerUpload",
       "ecr:PutImage"
     ]
-    resources = ["arn:aws:ecr:eu-central-1:149219722113:repository/dbt-test"]
+    resources = ["arn:aws:ecr:eu-central-1:049417293525:repository/elite-dbt"]
   }
 }
 
