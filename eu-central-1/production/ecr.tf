@@ -32,18 +32,18 @@ resource "aws_ecr_lifecycle_policy" "elite_airflow" {
   policy = data.aws_ecr_lifecycle_policy_document.elite_airflow.json
 }
 
-resource "aws_ecr_repository" "elite_dbt" {
-  name                 = "elite-dbt"
-  image_tag_mutability = "MUTABLE"
+# resource "aws_ecr_repository" "elite_dbt" {
+#   name                 = "elite-dbt"
+#   image_tag_mutability = "MUTABLE"
 
-  image_scanning_configuration {
-    scan_on_push = true
-  }
+#   image_scanning_configuration {
+#     scan_on_push = true
+#   }
 
-  tags = merge(local.common_tags, {
-    Name = "elite-dbt"
-  })
-}
+#   tags = merge(local.common_tags, {
+#     Name = "elite-dbt"
+#   })
+# }
 
 data "aws_ecr_lifecycle_policy_document" "elite_dbt" {
 
