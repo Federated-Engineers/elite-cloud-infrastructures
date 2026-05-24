@@ -39,7 +39,6 @@ resource "aws_ecr_repository" "elite_dbt" {
   image_scanning_configuration {
     scan_on_push = true
   }
-
   tags = merge(local.common_tags, {
     Name = "elite-dbt"
   })
