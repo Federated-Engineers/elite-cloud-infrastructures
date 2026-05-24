@@ -1,7 +1,7 @@
 # Cloud-infrastructures
 This repository manages our cloud infrastructure using Terraform, to provision and manage cloud infrastructure across multiple environments. The infrastructure is organised by region and environment to ensure clarity, consistency, and safe separation of resources.
 
-## Repository Structure
+## Repository Structure 
 ```text
 .
 ├── .github
