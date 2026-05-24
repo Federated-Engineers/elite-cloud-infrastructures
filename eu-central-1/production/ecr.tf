@@ -67,5 +67,5 @@ data "aws_ecr_lifecycle_policy_document" "elite_dbt" {
 
 #   repository = aws_ecr_repository.elite_dbt.name
 
-  policy = data.aws_ecr_lifecycle_policy_document.elite_dbt.json
-}
+#   policy = data.aws_ecr_lifecycle_policy_document.elite_dbt.json
+# }
