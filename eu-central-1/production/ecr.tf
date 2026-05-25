@@ -112,7 +112,7 @@ resource "aws_ecr_repository" "elite_kings_county_ledger_dbt" {
     scan_on_push = true
   }
 
-  tags = merge(local.common_tags, {Name = "elite-kings-county-ledger-dbt"})
+  tags = merge(local.common_tags, { Name = "elite-kings-county-ledger-dbt" })
 }
 
 
