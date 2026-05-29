@@ -1,10 +1,10 @@
 resource "aws_ecs_cluster" "angel_city_cluster" {
-  name = "angel-city-health_cluster"
+  name = "angel-city-health-cluster"
 
   tags = merge(
     local.common_tags,
     {
-      Name = "elite-dbt"
+      Name = "angel_city_cluster"
 
     }
   )

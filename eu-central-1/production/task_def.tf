@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "angel_city_dbt_task" {
   tags = merge(
     local.common_tags,
     {
-      Name = "elite-dbt"
+      Name = "angel_city_task"
 
     }
   )
