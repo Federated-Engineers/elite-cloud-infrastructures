@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_group" "angel_city_dbt_logs" {
   tags = merge(
     local.common_tags,
     {
-      Name = "elite-dbt"
+      Name = "angel_city_logs"
 
     }
   )
