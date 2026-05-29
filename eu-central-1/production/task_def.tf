@@ -6,6 +6,14 @@ resource "aws_ecs_task_definition" "angel_city_dbt_task" {
   memory                   = 1024
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
 
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "elite-dbt"
+
+    }
+  )
+
   container_definitions = jsonencode([
     {
       name      = "elite-dbt"
