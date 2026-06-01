@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "ecr_push_policy" {
       "ecr:CompleteLayerUpload",
       "ecr:PutImage"
     ]
-    resources = ["arn:aws:ecr:eu-central-1:049417293525:repository/elite-dbt"]
+    resources = ["arn:aws:ecr:eu-central-1:049417293525:repository/*"]
   }
 }
 
