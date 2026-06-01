@@ -137,3 +137,40 @@ resource "aws_ecr_lifecycle_policy" "elite_kings_county_ledger_dbt" {
 
   policy = data.aws_ecr_lifecycle_policy_document.elite_kings_county_ledger_dbt.json
 }
+<<<<<<< HEAD
+=======
+
+resource "aws_ecr_repository" "cocosurf_gear_dbt" {
+  name                 = "cocosurf-gear-dbt"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  tags = merge(local.common_tags, { Name = "cocosurf-gear-dbt" })
+}
+
+
+data "aws_ecr_lifecycle_policy_document" "cocosurf_gear_dbt" {
+  rule {
+    priority    = 1
+    description = "To delete old ecr images but keet the 3 most recent images"
+    action {
+      type = "expire"
+    }
+
+    selection {
+      tag_status   = "any"
+      count_type   = "imageCountMoreThan"
+      count_number = 3
+    }
+  }
+}
+
+resource "aws_ecr_lifecycle_policy" "cocosurf_gear_dbt" {
+  repository = aws_ecr_repository.cocosurf_gear_dbt.name
+
+  policy = data.aws_ecr_lifecycle_policy_document.cocosurf_gear_dbt.json
+}
+>>>>>>> cecd54c (create ecr repo)
