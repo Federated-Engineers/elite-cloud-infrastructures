@@ -137,3 +137,4 @@ resource "aws_ecr_lifecycle_policy" "elite_kings_county_ledger_dbt" {
 
   policy = data.aws_ecr_lifecycle_policy_document.elite_kings_county_ledger_dbt.json
 }
+
