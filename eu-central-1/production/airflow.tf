@@ -66,3 +66,47 @@ resource "aws_iam_policy" "airflow_policy" {
   })
 }
 
+resource "aws_iam_policy" "airflow_ecs_access_policy" {
+
+  name        = "airflow_ecs_access_policy"
+  description = "Allow  all Elite Data Engineer Airflow users to run ECS dbt tasks"
+
+  policy = jsonencode({
+
+    Version = "2012-10-17"
+
+    Statement = [
+
+      {
+        Sid    = "RunECSTasks"
+        Effect = "Allow"
+        Action = [
+          "ecs:RunTask",
+          "ecs:DescribeTasks",
+          "ecs:DescribeTaskDefinition",
+          "ecs:DescribeClusters",
+          "ecs:ListTasks"
+        ]
+
+        Resource = "*"
+      },
+
+      {
+        Sid    = "PassTaskRoles"
+        Effect = "Allow"
+        Action = [
+          "iam:PassRole"
+        ]
+
+        Resource = [
+          aws_iam_role.ecs_task_execution_role.arn
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_group_policy_attachment" "ecs_group_access" {
+  group      = "elite-data-engineers"
+  policy_arn = aws_iam_policy.airflow_ecs_access_policy.arn
+}
