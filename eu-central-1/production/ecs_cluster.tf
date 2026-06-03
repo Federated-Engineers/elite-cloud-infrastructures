@@ -21,3 +21,11 @@ resource "aws_ecs_cluster" "elite_lone_star" {
     }
   )
 }
+
+resource "aws_ecs_cluster" "elite_kings_county" {
+  name = "elite-kings-county-cluster"
+
+  tags = merge(local.common_tags,
+    { Name = "elite-kings-county-cluster" }
+  )
+}
