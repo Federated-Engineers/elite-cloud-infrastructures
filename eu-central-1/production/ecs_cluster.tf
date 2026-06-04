@@ -16,7 +16,7 @@ resource "aws_ecs_cluster" "elite_lone_star" {
   tags = merge(
     local.common_tags,
     {
-      Name = "angel_city_cluster"
+      Name = "lone_star_cluster"
 
     }
   )
