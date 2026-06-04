@@ -73,7 +73,6 @@ resource "aws_iam_policy" "elite_airflow_ecs_policy" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-
       {
         Sid    = "RunECSTasks"
         Effect = "Allow"
@@ -84,20 +83,17 @@ resource "aws_iam_policy" "elite_airflow_ecs_policy" {
           "ecs:DescribeClusters",
           "ecs:ListTasks"
         ]
-
         Resource = [
           aws_ecs_cluster.angel_city_cluster.arn,
           aws_ecs_task_definition.angel_city_dbt_task.arn
         ]
       },
-
       {
         Sid    = "PassTaskRoles"
         Effect = "Allow"
         Action = [
           "iam:PassRole"
         ]
-
         Resource = [
           aws_iam_role.ecs_task_execution_role.arn
         ]
@@ -106,7 +102,7 @@ resource "aws_iam_policy" "elite_airflow_ecs_policy" {
   })
 }
 
-resource "aws_iam_group_policy_attachment" "ecs_group_access" {
+resource "aws_iam_group_policy_attachment" "elite_ecs_group_access" {
   group      = "elite-data-engineers"
   policy_arn = aws_iam_policy.elite_airflow_ecs_policy.arn
 }
