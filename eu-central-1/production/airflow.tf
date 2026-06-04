@@ -84,7 +84,7 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
         ]
         Resource = [
           aws_ecs_cluster.angel_city_cluster.arn,
-          "${aws_ecs_task_definition.angel_city_dbt_task.arn_without_revision}:*"
+          aws_ecs_task_definition.angel_city_dbt_task.arn
         ]
       },
       {
