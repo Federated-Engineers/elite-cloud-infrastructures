@@ -50,7 +50,6 @@ resource "aws_iam_policy" "airflow_policy" {
         Resource = [
           "arn:aws:ssm:eu-central-1:049417293525:parameter/production/google-service-account/credentials",
           "arn:aws:ssm:eu-central-1:049417293525:parameter/supabase/database/credentials",
-          "arn:aws:ssm:eu-central-1:049417293525:parameter/staging/elite/snowflake/*",
         ]
       },
 
@@ -66,9 +65,9 @@ resource "aws_iam_policy" "airflow_policy" {
   })
 }
 
-resource "aws_iam_policy" "elite_airflow_ecs_policy" {
-  name        = "airflow_ecs_access_policy"
-  description = "Allow  all Elite Data Engineer Airflow users to run ECS dbt tasks"
+resource "aws_iam_policy" "airflow_ecs_policy" {
+  name        = "elite-airflow-ecs-policy"
+  description = "Allow all Elite Data Engineer Airflow users to run ECS dbt tasks"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -85,7 +84,18 @@ resource "aws_iam_policy" "elite_airflow_ecs_policy" {
         ]
         Resource = [
           aws_ecs_cluster.angel_city_cluster.arn,
-          aws_ecs_task_definition.angel_city_dbt_task.arn
+          "${aws_ecs_task_definition.angel_city_dbt_task.arn_without_revision}:*"
+        ]
+      },
+      {
+        Sid    = "ReadSSMParameters"
+        Effect = "Allow"
+        Action = [
+          "ssm:GetParameter",
+          "ssm:GetParameters"
+        ]
+        Resource = [
+          "arn:aws:ssm:eu-central-1:049417293525:parameter/staging/elite/snowflake/*",
         ]
       },
       {
@@ -104,5 +114,5 @@ resource "aws_iam_policy" "elite_airflow_ecs_policy" {
 
 resource "aws_iam_group_policy_attachment" "elite_ecs_group_access" {
   group      = "elite-data-engineers"
-  policy_arn = aws_iam_policy.elite_airflow_ecs_policy.arn
+  policy_arn = aws_iam_policy.airflow_ecs_policy.arn
 }
