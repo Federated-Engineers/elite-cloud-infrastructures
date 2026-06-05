@@ -64,22 +64,40 @@ resource "aws_ecs_task_definition" "angel_city_dbt_task" {
   ])
 }
 
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "elite-dbt-ecs-task-execution-role"
+resource "aws_ecs_task_definition" "elite_kings_county_dbt_task" {
+  family                   = "elite-kings-county-dbt-task"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = 512
+  memory                   = 1024
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+  tags = merge(local.common_tags,
+    { Name = "elite-kings-county-dbt-task" }
+  )
 
-    Statement = [
-      {
-        Effect = "Allow"
+  container_definitions = jsonencode([
+    {
+      name      = "elite-kings-county-dbt"
+      image     = "${aws_ecr_repository.elite_kings_county_ledger_dbt.repository_url}:latest"
+      essential = true
 
-        Principal = {
-          Service = "ecs-tasks.amazonaws.com"
+      logConfiguration = {
+        logDriver = "awslogs"
+
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.elite_kings_county_dbt_logs.name
+          awslogs-region        = "eu-central-1"
+          awslogs-stream-prefix = "ecs"
         }
-
-        Action = "sts:AssumeRole"
       }
-    ]
-  })
+
+      secrets = [
+        {
+          name      = "SNOWFLAKE_PASSWORD"
+          valueFrom = data.aws_ssm_parameter.elite_kings_county_snowflake_password.arn
+        }
+      ]
+    }
+  ])
 }
