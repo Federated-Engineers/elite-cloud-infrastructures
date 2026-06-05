@@ -94,7 +94,7 @@ resource "aws_ecs_task_definition" "elite_kings_county_dbt_task" {
 
       secrets = [
         {
-          name      = "SNOWFLAKE_PASSWORD"
+          name      = "ELITE_KINGS_COUNTY_SNOWFLAKE_PASSWORD"
           valueFrom = data.aws_ssm_parameter.elite_kings_county_snowflake_password.arn
         }
       ]
