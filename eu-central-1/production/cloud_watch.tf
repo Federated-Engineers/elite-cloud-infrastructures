@@ -8,6 +8,7 @@ resource "aws_cloudwatch_log_group" "angel_city_dbt_logs" {
 
     }
   )
+  retention_in_days = 30
 }
 
 resource "aws_cloudwatch_log_group" "elite_kings_county_dbt_logs" {
@@ -16,4 +17,6 @@ resource "aws_cloudwatch_log_group" "elite_kings_county_dbt_logs" {
   tags = merge(local.common_tags,
     { Name = "elite-kings-county-dbt-logs" }
   )
+
+  retention_in_days = 30
 }
