@@ -29,3 +29,7 @@ data "aws_ssm_parameter" "elite_dbt_snowflake_warehouse" {
 data "aws_iam_policy" "ecs_task_execution" {
   arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
+
+data "aws_ssm_parameter" "elite_kings_county_snowflake_password" {
+  name = "/production/elite/snowflake/kings_county/snowflake_password"
+}
