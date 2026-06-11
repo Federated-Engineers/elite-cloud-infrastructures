@@ -171,19 +171,19 @@ resource "aws_ecr_lifecycle_policy" "elite_cocosurf_gear_dbt" {
   policy = data.aws_ecr_lifecycle_policy_document.elite_cocosurf_gear_dbt.json
 }
 
-resource "aws_ecr_repository" "lonestar_dbt" {
-  name                 = "lonestar-dbt"
+resource "aws_ecr_repository" "elite_lonestar_dbt" {
+  name                 = "elite-lonestar-dbt"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
   }
   tags = merge(local.common_tags, {
-    Name = "lonestar-dbt"
+    Name = "elite_lonestar-dbt"
   })
 }
 
-data "aws_ecr_lifecycle_policy_document" "lonestar_dbt" {
+data "aws_ecr_lifecycle_policy_document" "elite_lonestar_dbt" {
 
   rule {
     priority    = 1
@@ -201,9 +201,9 @@ data "aws_ecr_lifecycle_policy_document" "lonestar_dbt" {
   }
 }
 
-resource "aws_ecr_lifecycle_policy" "lonestar_dbt" {
+resource "aws_ecr_lifecycle_policy" "elite_lonestar_dbt" {
 
-  repository = aws_ecr_repository.lonestar_dbt.name
+  repository = aws_ecr_repository.elite_lonestar_dbt.name
 
-  policy = data.aws_ecr_lifecycle_policy_document.lonestar_dbt.json
+  policy = data.aws_ecr_lifecycle_policy_document.elite_lonestar_dbt.json
 }
