@@ -34,3 +34,15 @@ resource "aws_ecs_cluster" "elite_kings_county_dbt" {
     { Name = "elite-kings-county-dbt" }
   )
 }
+
+resource "aws_ecs_cluster" "elite_lonestar" {
+  name = "elite-lonestar-cluster"
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "lonestar_cluster"
+
+    }
+  )
+}
