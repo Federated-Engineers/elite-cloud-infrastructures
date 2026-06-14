@@ -88,6 +88,15 @@ resource "aws_ecs_task_definition" "elite_kings_county_dbt_task" {
         }
       }
 
+      environment = [
+        { name : "account", value : "UJYDCFM-ZZ49269" },
+        { name : "database", value : "SLEEKMART_OMS" },
+        { name : "user", value : "THEJOYVICTOR" },
+        { name : "role", value : "ACCOUNTADMIN" },
+        { name : "warehouse", value : "transforming" },
+        { name : "schema", value : "L1_LANDING" }
+      ]
+
       secrets = [
         {
           name      = "ELITE_KINGS_COUNTY_SNOWFLAKE_PASSWORD"
