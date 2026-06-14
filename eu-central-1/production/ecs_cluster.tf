@@ -38,11 +38,15 @@ resource "aws_ecs_cluster" "elite_kings_county_dbt" {
 resource "aws_ecs_cluster" "elite_lonestar" {
   name = "elite-lonestar-cluster"
 
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
   tags = merge(
     local.common_tags,
     {
       Name = "lonestar_cluster"
-
     }
   )
 }

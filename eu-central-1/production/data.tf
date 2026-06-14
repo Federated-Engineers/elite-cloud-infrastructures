@@ -33,3 +33,7 @@ data "aws_iam_policy" "ecs_task_execution" {
 data "aws_ssm_parameter" "elite_kings_county_snowflake_password" {
   name = "/production/elite/snowflake/kings_county/snowflake_password"
 }
+
+data "aws_ssm_parameter" "lonestar_snowflake_password" {
+  name = "/production/forge/snowflake/lone-star-assurance/snowflake_password"
+}
