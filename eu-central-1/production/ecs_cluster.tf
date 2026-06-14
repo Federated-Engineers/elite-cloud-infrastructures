@@ -46,7 +46,7 @@ resource "aws_ecs_cluster" "elite_lonestar" {
   tags = merge(
     local.common_tags,
     {
-      Name = "lonestar_cluster"
+      Name = "elite_lonestar_cluster"
     }
   )
 }

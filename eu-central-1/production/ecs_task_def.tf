@@ -102,8 +102,8 @@ resource "aws_ecs_task_definition" "elite_kings_county_dbt_task" {
   )
 }
 
-resource "aws_ecs_task_definition" "lonestar_dbt_task" {
-  family                   = "lonestar-dbt-task"
+resource "aws_ecs_task_definition" "elite_lonestar_dbt_task" {
+  family                   = "elite_lonestar-dbt-task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 512
@@ -119,7 +119,7 @@ resource "aws_ecs_task_definition" "lonestar_dbt_task" {
         logDriver = "awslogs"
 
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.lonestar_dbt_logs.name
+          awslogs-group         = aws_cloudwatch_log_group.elite_lonestar_dbt_logs.name
           awslogs-region        = "eu-central-1"
           awslogs-stream-prefix = "ecs"
         }
@@ -161,6 +161,6 @@ resource "aws_ecs_task_definition" "lonestar_dbt_task" {
   ])
 
   tags = merge(local.common_tags,
-    { Name = "lonestar-dbt-task" }
+    { Name = "elite_lonestar-dbt-task" }
   )
 }
