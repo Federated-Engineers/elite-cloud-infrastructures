@@ -20,3 +20,13 @@ resource "aws_cloudwatch_log_group" "elite_kings_county_dbt_logs" {
 
   retention_in_days = 30
 }
+
+resource "aws_cloudwatch_log_group" "elite_lonestar_dbt_logs" {
+  name              = "elite_lonestar-dbt-logs"
+  retention_in_days = 14
+  log_group_class   = "STANDARD"
+
+  tags = merge(local.common_tags,
+    { Name = "elite-lonestar-dbt-logs" }
+  )
+}

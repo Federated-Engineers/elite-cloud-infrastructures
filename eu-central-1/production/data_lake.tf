@@ -96,3 +96,12 @@ module "mare_viva_bucket" {
   environment     = var.environment
 }
 
+module "lonestar_tfstate_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "lonestar-tf-state"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
