@@ -31,14 +31,14 @@ resource "aws_cloudwatch_log_group" "elite_lonestar_dbt_logs" {
   )
 }
 
-resource "aws_cloudwatch_log_group" "elite_lonestar_assurance_dbt_logs" {
+resource "aws_cloudwatch_log_group" "elite_lone_star_assurance_dbt_logs" {
 
   tags = merge(local.common_tags,
-    { Name = "elite-lonestar-assurance-dbt-logs" }
+    { Name = "elite-lone-star-assurance-dbt-logs" }
   )
 
 
-  name              = "elite-lonestar-assurance-dbt-logs"
+  name              = "elite-lone-star-assurance-dbt-logs"
   log_group_class   = "STANDARD"
   retention_in_days = 30
 
