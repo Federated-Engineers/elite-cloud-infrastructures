@@ -220,6 +220,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
     { Name = "elite-lone-star-dbt-task" 
     })
     }
-    
+
+
   
 
