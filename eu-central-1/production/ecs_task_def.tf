@@ -173,3 +173,50 @@ resource "aws_ecs_task_definition" "elite_lonestar_dbt_task" {
     { Name = "elite_lonestar-dbt-task" }
   )
 }
+
+
+resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
+  family                   = "elite_lonestar-assurance-dbt-task"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = 512
+  memory                   = 1024
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  container_definitions = jsonencode([
+    {
+      name      = "elite-lone_star"
+      image     = "${aws_ecr_repository.elite_lone_star.repository_url}:latest"
+      essential = true
+
+      logConfiguration = {
+        logDriver = "awslogs"
+
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.elite_lonestar_assurance_dbt_logs.name
+          awslogs-region        = "eu-central-1"
+          awslogs-stream-prefix = "ecs"
+        }
+      }
+      
+       environment = [
+        { name : "SNOWFLAKE_ACCOUNT", value : "YGUEVLA-ID96582" },
+        { name : "SNOWFLAKE_DATABASE", value : "lone_star_database" },
+        { name : "SNOWFLAKE_USER", value : "CHIZOBAEZE" },
+        { name : "SNOWFLAKE_ROLE", value : "ACCOUNTADMIN" },
+        { name : "SNOWFLAKE_WAREHOUSE", value : "lone_star" },
+        { name : "SNOWFLAKE_SCHEMA", value : "lone_schema" }
+      ]
+
+      secrets = [
+        {
+          name      = "ELITE_LONE_STAR_SNOWFLAKE_PASSWORD"
+          valueFrom = data.aws_ssm_parameter.elite_lone_star_snowflake_password.arn
+        }
+      ]
+    }
+  ])
+
+  tags = merge(local.common_tags,
+    { Name = "elite-lone-star-dbt-task" }
+    )}
+
