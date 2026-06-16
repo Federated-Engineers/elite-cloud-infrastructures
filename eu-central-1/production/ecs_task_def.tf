@@ -176,7 +176,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_dbt_task" {
 
 
 resource "aws_ecs_task_definition" "elite_lone_star_assurance_dbt_task" {
-  family                   = "elite-lone-star-assurance-dbt-task"
+  family                   = "elite_lone_star_assurance_dbt_task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 512
@@ -217,7 +217,7 @@ resource "aws_ecs_task_definition" "elite_lone_star_assurance_dbt_task" {
   ])
 
   tags = merge(local.common_tags,
-    { Name = "elite-lone-star-assurance-dbt-task" }
+    { Name = "elite_lone_star_assurance_dbt_task" }
   )
 }
 
