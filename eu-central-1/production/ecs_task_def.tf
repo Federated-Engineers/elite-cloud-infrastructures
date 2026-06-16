@@ -175,8 +175,8 @@ resource "aws_ecs_task_definition" "elite_lonestar_dbt_task" {
 }
 
 
-resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
-  family                   = "elite_lonestar-assurance-dbt-task"
+resource "aws_ecs_task_definition" "elite_lone_star_assurance_dbt_task" {
+  family                   = "elite-lone-star-assurance-dbt-task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 512
@@ -192,7 +192,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
         logDriver = "awslogs"
 
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.elite_lonestar_assurance_dbt_logs.name
+          awslogs-group         = aws_cloudwatch_log_group.elite_lone_star_assurance_dbt_logs.name
           awslogs-region        = "eu-central-1"
           awslogs-stream-prefix = "ecs"
         }
@@ -217,7 +217,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
   ])
 
   tags = merge(local.common_tags,
-    { Name = "elite-lone-star-dbt-task" }
+    { Name = "elite-lone-star-assurance-dbt-task" }
   )
 }
 
