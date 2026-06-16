@@ -210,7 +210,7 @@ resource "aws_ecs_task_definition" "elite_lone_star_assurance_dbt_task" {
       secrets = [
         {
           name      = "ELITE_LONE_STAR_SNOWFLAKE_PASSWORD"
-          valueFrom = data.aws_ssm_parameter.elite_lone_star_snowflake_password.arn
+          valueFrom = data.aws_ssm_parameter.elite_lone_star_assurance_snowflake_password.arn
         }
       ]
     }
