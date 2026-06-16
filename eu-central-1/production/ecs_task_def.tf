@@ -184,7 +184,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   container_definitions = jsonencode([
     {
-      name      = "elite-lone_star"
+      name      = "elite-lone-star"
       image     = "${aws_ecr_repository.elite_lone_star.repository_url}:latest"
       essential = true
 
@@ -197,8 +197,8 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
           awslogs-stream-prefix = "ecs"
         }
       }
-      
-       environment = [
+
+      environment = [
         { name : "SNOWFLAKE_ACCOUNT", value : "YGUEVLA-ID96582" },
         { name : "SNOWFLAKE_DATABASE", value : "lone_star_database" },
         { name : "SNOWFLAKE_USER", value : "CHIZOBAEZE" },
@@ -217,11 +217,11 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance_dbt_task" {
   ])
 
   tags = merge(local.common_tags,
-    { Name = "elite-lone-star-dbt-task"}
- )
+    { Name = "elite-lone-star-dbt-task" }
+  )
 }
 
 
 
-  
+
 
