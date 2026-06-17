@@ -185,7 +185,7 @@ resource "aws_ecs_task_definition" "elite_lone_star_assurance_dbt_task" {
   container_definitions = jsonencode([
     {
       name      = "elite-lone-star"
-      image     = "${aws_ecr_repository.elite_lone_star.repository_url}:latest"
+      image     = "${aws_ecr_repository.elite_lone_star_dbt.repository_url}:latest"
       essential = true
 
       logConfiguration = {
