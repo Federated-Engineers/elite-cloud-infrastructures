@@ -50,3 +50,19 @@ resource "aws_ecs_cluster" "elite_lonestar" {
     }
   )
 }
+
+resource "aws_ecs_cluster" "elite_cocosurf_gear_dbt" {
+  name = "elite-cocosurf-gear-dbt"
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "elite_cocosurf_gear_dbt"
+    }
+  )
+}
