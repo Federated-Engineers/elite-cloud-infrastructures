@@ -1,5 +1,5 @@
 resource "aws_iam_role" "elite_snowflake_s3_role" {
-  name        = "elite-lonestar-snowflake-role"
+  name        = "elite-snowflake-role"
   description = "Allow Snowflake storage integration to assume role for S3 access"
 
   assume_role_policy = jsonencode({
@@ -23,7 +23,7 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
 }
 
 resource "aws_iam_policy" "elite_snowflake_s3_policy" {
-  name        = "elite-lonestar-snowflake-policy"
+  name        = "elite-snowflake-policy"
   description = "Allow Snowflake to read from lonestar-assurance-lake"
 
   policy = jsonencode({
@@ -33,8 +33,10 @@ resource "aws_iam_policy" "elite_snowflake_s3_policy" {
         Sid    = "Read"
         Effect = "Allow"
         Action = [
-          "s3:List*",
-          "s3:Get*"
+          "s3:GetBucketLocation",
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:ListBucket"
         ]
         Resource = [
           "arn:aws:s3:::lone-star-assurance-lake",
