@@ -69,19 +69,19 @@ resource "aws_ecr_lifecycle_policy" "elite_dbt" {
   policy = data.aws_ecr_lifecycle_policy_document.elite_dbt.json
 }
 
-resource "aws_ecr_repository" "elite_lone_star" {
-  name                 = "elite-lone-star"
+resource "aws_ecr_repository" "elite_lone_star_dbt" {
+  name                 = "elite-lone-star-dbt"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
   }
 
-  tags = merge(local.common_tags, { Name = "elite-lone-star" })
+  tags = merge(local.common_tags, { Name = "elite-lone-star-dbt" })
 }
 
 
-data "aws_ecr_lifecycle_policy_document" "elite_lone_star" {
+data "aws_ecr_lifecycle_policy_document" "elite_lone_star_dbt" {
   rule {
     priority    = 1
     description = "To delete old ecr images but keet the 3 most recent images"
@@ -97,10 +97,10 @@ data "aws_ecr_lifecycle_policy_document" "elite_lone_star" {
   }
 }
 
-resource "aws_ecr_lifecycle_policy" "elite_lone_star" {
-  repository = aws_ecr_repository.elite_lone_star.name
+resource "aws_ecr_lifecycle_policy" "elite_lone_star_dbt" {
+  repository = aws_ecr_repository.elite_lone_star_dbt.name
 
-  policy = data.aws_ecr_lifecycle_policy_document.elite_lone_star.json
+  policy = data.aws_ecr_lifecycle_policy_document.elite_lone_star_dbt.json
 }
 
 
