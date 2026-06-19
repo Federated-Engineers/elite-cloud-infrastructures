@@ -105,3 +105,13 @@ module "lonestar_tfstate_bucket" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "kings_county_tfstate_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "kings-county-tf-state"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
