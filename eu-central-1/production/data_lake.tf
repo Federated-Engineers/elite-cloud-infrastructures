@@ -111,7 +111,7 @@ module "kings_county_tfstate_bucket" {
 
   environment     = var.environment
   team            = "elite"
-  bucket-use-case = "kings-county-tf-state"
+  bucket-use-case = "kings-county-tfstate"
   service         = "Terraform"
   versioning      = "Enabled"
 }
