@@ -245,5 +245,3 @@ resource "aws_ecr_lifecycle_policy" "elite_angelcity_dbt" {
 
   policy = data.aws_ecr_lifecycle_policy_document.elite_angelcity_dbt.json
 }
-
-
