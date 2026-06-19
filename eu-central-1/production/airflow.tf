@@ -88,7 +88,9 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
           aws_ecs_cluster.elite_kings_county_dbt.arn,
           aws_ecs_task_definition.elite_kings_county_dbt_task.arn,
           aws_ecs_cluster.elite_lonestar.arn,
-          aws_ecs_task_definition.elite_lonestar_dbt_task.arn
+          aws_ecs_task_definition.elite_lonestar_dbt_task.arn,
+          aws_ecs_cluster.elite_cocosurf_gear_dbt.arn,
+          aws_ecs_task_definition.elite_cocosurf_gear_dbt_task.arn
         ]
       },
       {
@@ -101,7 +103,8 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
         Resource = [
           "arn:aws:ssm:eu-central-1:049417293525:parameter/staging/elite/snowflake/*",
           "arn:aws:ssm:eu-central-1:049417293525:parameter/production/elite/snowflake/kings_county/*",
-          "arn:aws:ssm:eu-central-1:049417293525:parameter/production//forge/snowflake/lone-star-assurance/*"
+          "arn:aws:ssm:eu-central-1:049417293525:parameter/production//forge/snowflake/lone-star-assurance/*",
+          "arn:aws:ssm:eu-central-1:049417293525:parameter/production/elite/snowflake/cocosurf-gear/*"
         ]
       },
       {
