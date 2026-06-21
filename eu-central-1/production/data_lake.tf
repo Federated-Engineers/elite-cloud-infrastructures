@@ -96,3 +96,12 @@ module "mare_viva_bucket" {
   environment     = var.environment
 }
 
+module "mare_viva_bucket" {
+  source          = "../modules/s3-bucket"
+  team            = "elite"
+  bucket-use-case = "mare-viva-bucket_chizoba"
+  service         = "airflow"
+  versioning      = "Enabled"
+  environment     = var.environment
+}
+
