@@ -112,5 +112,5 @@ module "mare_viva_bucket_chizoba1" {
   service         = "airflow"
   versioning      = "Enabled"
   environment     = var.environment
-}
+} 
 
