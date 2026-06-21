@@ -226,7 +226,7 @@ resource "aws_ecs_task_definition" "elite_cocosurf_gear_dbt_task" {
       secrets = [
         {
           name      = "SNOWFLAKE_PASSWORD"
-          valueFrom = data.aws_ssm_parameter.cocosurf_gear_dbt_snowflake_password.arn
+          valueFrom = data.aws_ssm_parameter.cocosurf_gear_snowflake_password.arn
         }
       ]
     }
