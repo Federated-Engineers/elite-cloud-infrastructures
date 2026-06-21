@@ -104,7 +104,8 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
           "arn:aws:ssm:eu-central-1:049417293525:parameter/staging/elite/snowflake/*",
           "arn:aws:ssm:eu-central-1:049417293525:parameter/production/elite/snowflake/kings_county/*",
           "arn:aws:ssm:eu-central-1:049417293525:parameter/production//forge/snowflake/lone-star-assurance/*",
-          "arn:aws:ssm:eu-central-1:049417293525:parameter/production/elite/snowflake/lone-star-assurance/*"
+          "arn:aws:ssm:eu-central-1:049417293525:parameter/production/elite/snowflake/lone-star-assurance/*",
+          "arn:aws:ssm:eu-central-1:049417293525:parameter/production/elite/snowflake/cocosurf-gear/*"
         ]
       },
       {
