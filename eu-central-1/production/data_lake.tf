@@ -115,3 +115,13 @@ module "kings_county_tfstate_bucket" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "m_angel_city_tfstate_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "m-angel-city-tfstate"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}

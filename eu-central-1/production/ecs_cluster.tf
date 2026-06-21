@@ -1,6 +1,11 @@
 resource "aws_ecs_cluster" "angel_city_cluster" {
   name = "angel-city-health-cluster"
 
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
   tags = merge(
     local.common_tags,
     {

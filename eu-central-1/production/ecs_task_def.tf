@@ -30,34 +30,19 @@ resource "aws_ecs_task_definition" "angel_city_dbt_task" {
         }
       }
 
+      environment = [
+        { name : "account", value : "EHUILYU-XQ84505" },
+        { name : "database", value : "ELITE_DBT_DB" },
+        { name : "user", value : "MUSILIADEBAYO005" },
+        { name : "role", value : "ACCOUNTADMIN" },
+        { name : "warehouse", value : "ELITE_DBT_WH" },
+        { name : "schema", value : "ELITE_DBT_SCHEMA" }
+      ]
+
       secrets = [
-        {
-          name      = "SNOWFLAKE_ACCOUNT"
-          valueFrom = data.aws_ssm_parameter.elite_dbt_snowflake_account.arn
-        },
-        {
-          name      = "SNOWFLAKE_DATABASE"
-          valueFrom = data.aws_ssm_parameter.elite_dbt_snowflake_database.arn
-        },
         {
           name      = "SNOWFLAKE_PASSWORD"
           valueFrom = data.aws_ssm_parameter.elite_dbt_snowflake_password.arn
-        },
-        {
-          name      = "SNOWFLAKE_ROLE"
-          valueFrom = data.aws_ssm_parameter.elite_dbt_snowflake_role.arn
-        },
-        {
-          name      = "SNOWFLAKE_SCHEMA"
-          valueFrom = data.aws_ssm_parameter.elite_dbt_snowflake_schema.arn
-        },
-        {
-          name      = "SNOWFLAKE_USER"
-          valueFrom = data.aws_ssm_parameter.elite_dbt_snowflake_user.arn
-        },
-        {
-          name      = "SNOWFLAKE_WAREHOUSE"
-          valueFrom = data.aws_ssm_parameter.elite_dbt_snowflake_warehouse.arn
         }
       ]
     }
