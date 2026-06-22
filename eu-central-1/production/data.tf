@@ -37,3 +37,10 @@ data "aws_ssm_parameter" "elite_kings_county_snowflake_password" {
 data "aws_ssm_parameter" "lonestar_snowflake_password" {
   name = "/production/forge/snowflake/lone-star-assurance/snowflake_password"
 }
+
+data "aws_ssm_parameter" "lone_star_assurance_snowflake_password" {
+  name = "/production/elite/snowflake/lone-star-assurance/snowflake_password"
+}
+data "aws_ssm_parameter" "cocosurf_gear_snowflake_password" {
+  name = "/production/elite/snowflake/cocosurf-gear-dbt/dbt-snowflake_password"
+}
