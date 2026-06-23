@@ -121,7 +121,7 @@ module "angel_city_tfstate_bucket" {
 
   environment     = var.environment
   team            = "elite"
-  bucket-use-case = "m-angel-city-tfstate"
+  bucket-use-case = "angel-city-tfstate"
   service         = "Terraform"
   versioning      = "Enabled"
 }
