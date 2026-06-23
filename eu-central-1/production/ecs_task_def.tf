@@ -31,12 +31,12 @@ resource "aws_ecs_task_definition" "angel_city_dbt_task" {
       }
 
       environment = [
-        { name : "account", value : "EHUILYU-XQ84505" },
+        { name : "account", value : "MQAUBZD-WH36742" },
         { name : "database", value : "ELITE_DBT_DB" },
-        { name : "user", value : "MUSILIADEBAYO005" },
-        { name : "role", value : "ACCOUNTADMIN" },
+        { name : "user", value : "MUSILIADE" },
+        { name : "role", value : "DBT_ROLE" },
         { name : "warehouse", value : "ELITE_DBT_WH" },
-        { name : "schema", value : "ELITE_DBT_SCHEMA" }
+        { name : "schema", value : "PROD" }
       ]
 
       secrets = [

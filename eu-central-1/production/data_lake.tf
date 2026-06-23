@@ -116,7 +116,7 @@ module "kings_county_tfstate_bucket" {
   versioning      = "Enabled"
 }
 
-module "m_angel_city_tfstate_bucket" {
+module "angel_city_tfstate_bucket" {
   source = "../modules/s3-bucket"
 
   environment     = var.environment

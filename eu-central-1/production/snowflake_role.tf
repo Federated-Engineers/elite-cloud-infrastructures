@@ -41,8 +41,6 @@ resource "aws_iam_policy" "elite_snowflake_s3_policy" {
         Resource = [
           "arn:aws:s3:::lone-star-assurance-lake",
           "arn:aws:s3:::lone-star-assurance-lake/*",
-          "arn:aws:s3:::angel-city-health-data",
-          "arn:aws:s3:::angel-city-health-data/*"
         ]
       }
     ]
