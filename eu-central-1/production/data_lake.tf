@@ -125,3 +125,13 @@ module "angel_city_tfstate_bucket" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "cocosurf_gear_tfstate_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "cocosurf-gear-tfstate"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
