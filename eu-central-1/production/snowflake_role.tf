@@ -24,7 +24,7 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
 
 resource "aws_iam_policy" "elite_snowflake_s3_policy" {
   name        = "elite-snowflake-policy"
-  description = "Allow Snowflake to read from lonestar-assurance-lake"
+  description = "Allow Snowflake to read from S3 buckets"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -39,8 +39,6 @@ resource "aws_iam_policy" "elite_snowflake_s3_policy" {
           "s3:ListBucket"
         ]
         Resource = [
-          "arn:aws:s3:::lone-star-assurance-lake",
-          "arn:aws:s3:::lone-star-assurance-lake/*",
           "arn:aws:s3:::kings-county-raw-ingestion",
           "arn:aws:s3:::kings-county-raw-ingestion/*"
         ]
