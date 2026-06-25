@@ -126,23 +126,23 @@ resource "aws_ecs_task_definition" "elite_lonestar_dbt_task" {
         },
         {
           name  = "SNOWFLAKE_DATABASE"
-          value = "TEST_DB"
+          value = "LONESTAR_PROD_DB"
         },
         {
           name  = "SNOWFLAKE_ROLE"
-          value = "ACCOUNTADMIN"
+          value = "DBT_ROLE"
         },
         {
           name  = "SNOWFLAKE_SCHEMA"
-          value = "BRONZE_TEST"
+          value = "BRONZE"
         },
         {
           name  = "SNOWFLAKE_USER"
-          value = "MOOSTAPHAR"
+          value = "DBT_USR"
         },
         {
           name  = "SNOWFLAKE_WAREHOUSE"
-          value = "COMPUTE_WH"
+          value = "ETL_WH"
         }
       ]
       secrets = [
