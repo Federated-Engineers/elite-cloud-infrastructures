@@ -134,7 +134,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_dbt_task" {
         },
         {
           name  = "SNOWFLAKE_SCHEMA"
-          value = "BRONZE"
+          value = "SILVER"
         },
         {
           name  = "SNOWFLAKE_USER"
