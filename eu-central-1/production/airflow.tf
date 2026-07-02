@@ -90,7 +90,9 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
           aws_ecs_cluster.elite_lonestar.arn,
           aws_ecs_task_definition.elite_lonestar_dbt_task.arn,
           aws_ecs_cluster.elite_lone_star.arn,
-          aws_ecs_task_definition.elite_lone_star_assurance_dbt_task.arn
+          aws_ecs_task_definition.elite_lone_star_assurance_dbt_task.arn,
+          aws_ecs_cluster.elite_cocosurf_gear.arn,
+          aws_ecs_task_definition.elite_cocosurf_gear_dbt_task.arn
         ]
       },
       {
