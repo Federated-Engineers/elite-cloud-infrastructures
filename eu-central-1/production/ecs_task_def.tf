@@ -74,18 +74,18 @@ resource "aws_ecs_task_definition" "elite_kings_county_dbt_task" {
       }
 
       environment = [
-        { name : "account", value : "UJYDCFM-ZZ49269" },
-        { name : "database", value : "SLEEKMART_OMS" },
-        { name : "user", value : "THEJOYVICTOR" },
-        { name : "role", value : "ACCOUNTADMIN" },
-        { name : "warehouse", value : "transforming" },
-        { name : "schema", value : "L1_LANDING" }
+        { name : "account", value : "CIQSRPO-RD17961" },
+        { name : "database", value : "PROD_DB" },
+        { name : "user", value : "ECS_USER" },
+        { name : "role", value : "ECS_ROLE" },
+        { name : "warehouse", value : "PROD_SERVICE_WH" },
+        { name : "schema", value : "BRONZE" }
       ]
 
       secrets = [
         {
           name      = "ELITE_KINGS_COUNTY_SNOWFLAKE_PASSWORD"
-          valueFrom = data.aws_ssm_parameter.elite_kings_county_snowflake_password.arn
+          valueFrom = data.aws_ssm_parameter.elite_kings_county_snowflake_ecs_password.arn
         }
       ]
     }
