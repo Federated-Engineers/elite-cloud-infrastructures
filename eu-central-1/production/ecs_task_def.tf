@@ -32,10 +32,10 @@ resource "aws_ecs_task_definition" "angel_city_dbt_task" {
 
       environment = [
         { name : "account", value : "MQAUBZD-WH36742" },
-        { name : "database", value : "ELITE_DBT_DB" },
+        { name : "database", value : "ANGEL_CITY_HEALTH_DB" },
         { name : "user", value : "MUSILIADE" },
         { name : "role", value : "DBT_ROLE" },
-        { name : "warehouse", value : "ELITE_DBT_WH" },
+        { name : "warehouse", value : "DBT_WH" },
         { name : "schema", value : "PROD" }
       ]
 
