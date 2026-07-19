@@ -82,16 +82,7 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
           "ecs:DescribeClusters",
           "ecs:ListTasks"
         ]
-        Resource = [
-          aws_ecs_cluster.angel_city_cluster.arn,
-          aws_ecs_task_definition.angel_city_dbt_task.arn,
-          aws_ecs_cluster.elite_kings_county_dbt.arn,
-          aws_ecs_task_definition.elite_kings_county_dbt_task.arn,
-          aws_ecs_cluster.elite_lonestar.arn,
-          aws_ecs_task_definition.elite_lonestar_dbt_task.arn,
-          aws_ecs_cluster.elite_lone_star.arn,
-          aws_ecs_task_definition.elite_lone_star_assurance_dbt_task.arn
-        ]
+        Resource = ["*"]
       },
       {
         Sid    = "ReadSSMParameters"
