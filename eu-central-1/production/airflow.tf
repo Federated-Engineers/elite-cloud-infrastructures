@@ -82,7 +82,7 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
           "ecs:DescribeClusters",
           "ecs:ListTasks"
         ]
-        Resource = [ "*"
+        Resource = ["*"
         ]
       },
       {
