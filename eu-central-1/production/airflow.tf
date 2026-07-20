@@ -80,7 +80,8 @@ resource "aws_iam_policy" "airflow_ecs_policy" {
           "ecs:DescribeTasks",
           "ecs:DescribeTaskDefinition",
           "ecs:DescribeClusters",
-          "ecs:ListTasks"
+          "ecs:ListTasks",
+          "logs:GetLogEvents"
         ]
         Resource = ["*"]
       },
