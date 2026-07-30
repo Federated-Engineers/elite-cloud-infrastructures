@@ -12,7 +12,7 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
         Principal = {
           AWS = [
             "arn:aws:iam::650012445037:user/0trs1000-s",
-            "arn:aws:iam::269657857787:user/wv0u1000-s",
+            "arn:aws:iam::465573888563:user/vrpv1000-s",
             "arn:aws:iam::269657857787:user/lw0u1000-s"
           ]
         }
@@ -20,7 +20,7 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
           StringEquals = {
             "sts:ExternalId" = [
               "SQ35311_SFCRole=5_+0fH4prUkj3DW/Sd1ptZfnCLB/E=",
-              "KY10182_SFCRole=121_VYSuNn1eQ6Bsm66MFrEm6/Ov3A0=",
+              "DE99622_SFCRole=241_MYyQ/L0U1q/kn2pduUMF9PpfH/U=",
               "VL00901_SFCRole=121_d9i6/fwg6l03qBKOJJ8j3ICX33w="
             ]
           }
