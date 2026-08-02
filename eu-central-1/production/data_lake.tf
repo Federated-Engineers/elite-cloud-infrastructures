@@ -146,3 +146,12 @@ module "urban_route_tfstate_bucket" {
   versioning      = "Enabled"
 }
 
+module "ambergrid_tfstate_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "ambergrid-tfstate"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
