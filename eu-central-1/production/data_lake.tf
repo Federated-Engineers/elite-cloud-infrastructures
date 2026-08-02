@@ -136,6 +136,17 @@ module "cocosurf_gear_tfstate_bucket" {
   versioning      = "Enabled"
 }
 
+module "urban_route_tfstate_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "urban-route-tfstate"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
+
+
 module "ambergrid_tfstate_bucket" {
   source = "../modules/s3-bucket"
 
