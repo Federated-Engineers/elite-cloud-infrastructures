@@ -74,12 +74,12 @@ resource "aws_ecs_task_definition" "elite_kings_county_dbt_task" {
       }
 
       environment = [
-        { name : "account", value : "CIQSRPO-RD17961" },
+        { name : "account", value : "MGGTAJQ-OX61727" },
         { name : "database", value : "PROD_DB" },
         { name : "user", value : "ECS_USER" },
         { name : "role", value : "ECS_ROLE" },
         { name : "warehouse", value : "PROD_SERVICE_WH" },
-        { name : "schema", value : "BRONZE" }
+        { name : "schema", value : "SILVER" }
       ]
 
       secrets = [
