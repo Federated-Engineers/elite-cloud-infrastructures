@@ -17,7 +17,7 @@ module "elite_engineers_staging_athena_query_results" {
   environment     = var.environment
 }
 
-module "ambergrid_tfstate_bucket" {
+module "ambergrid_tfstate_staging_bucket" {
   source = "../modules/s3-bucket"
 
   environment     = var.environment
