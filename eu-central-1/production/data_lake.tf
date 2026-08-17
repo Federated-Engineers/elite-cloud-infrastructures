@@ -165,3 +165,13 @@ module "solaz_tfstate_bucket" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "nordic_peaks_data_lake" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  service         = "airflow"
+  team            = "elite"
+  versioning      = "Enabled"
+  bucket-use-case = "nordics-peaks-storage"
+}
