@@ -21,7 +21,9 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
             "sts:ExternalId" = [
               "SQ35311_SFCRole=5_+0fH4prUkj3DW/Sd1ptZfnCLB/E=",
               "DE99622_SFCRole=241_MYyQ/L0U1q/kn2pduUMF9PpfH/U=",
-              "VL00901_SFCRole=121_d9i6/fwg6l03qBKOJJ8j3ICX33w="
+              "VL00901_SFCRole=121_d9i6/fwg6l03qBKOJJ8j3ICX33w=",
+              "SQ35311_SFCRole=3241_N1K8Ci5Pwp3XCRp5LObc8Pn5QrM=",
+              "SQ35311_SFCRole=3241_JR3SANnMUKEyOieohU5Aw52DekU="
             ]
           }
         }
@@ -52,8 +54,9 @@ resource "aws_iam_policy" "elite_snowflake_s3_policy" {
           "arn:aws:s3:::kings-county-raw-ingestion",
           "arn:aws:s3:::kings-county-raw-ingestion/*",
           "arn:aws:s3:::angel-city-health-data",
-          "arn:aws:s3:::angel-city-health-data/*"
-
+          "arn:aws:s3:::angel-city-health-data/*",
+          "arn:aws:s3:::ambergrid-iot-telemetry-lake",
+          "arn:aws:s3:::ambergrid-iot-telemetry-lake/*"
         ]
       }
     ]

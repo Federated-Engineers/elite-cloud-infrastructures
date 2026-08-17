@@ -16,3 +16,13 @@ module "elite_engineers_staging_athena_query_results" {
   versioning      = "Suspended"
   environment     = var.environment
 }
+
+module "ambergrid_tfstate_staging_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "ambergrid-tfstate"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
