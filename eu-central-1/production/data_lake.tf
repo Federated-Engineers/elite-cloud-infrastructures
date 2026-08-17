@@ -165,3 +165,13 @@ module "solaz_tfstate_bucket" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "nordic_peaks_data_lake" {
+  source = "../modules/s3-bucket"
+
+  environment     = "production" # hard-coding this as a placeholder to understand what point the "production" variable is injected during terraform apply.
+  service         = "airflow"
+  team            = "elite"
+  versioning      = "Enabled"
+  bucket-use-case = "nordics-peaks-storage"
+}
