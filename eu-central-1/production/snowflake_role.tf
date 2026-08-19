@@ -58,8 +58,8 @@ resource "aws_iam_policy" "elite_snowflake_s3_policy" {
           "arn:aws:s3:::angel-city-health-data/*",
           "arn:aws:s3:::ambergrid-iot-telemetry-lake",
           "arn:aws:s3:::ambergrid-iot-telemetry-lake/*",
-          "arn:aws:s3:::solaz-supplychain-lake/telemetry/",
-          "arn:aws:s3:::solaz-supplychain-lake/telemetry/*"
+          "arn:aws:s3:::solaz-supplychain-lake",
+          "arn:aws:s3:::solaz-supplychain-lake/*"
         ]
       }
     ]
