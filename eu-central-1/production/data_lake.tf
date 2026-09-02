@@ -175,3 +175,14 @@ module "nordic_peaks_data_lake" {
   versioning      = "Enabled"
   bucket-use-case = "nordics-peaks-storage"
 }
+
+
+module "client_alpenmachanik_sftp_server_storage" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  service         = "airflow-and-transfer-family"
+  team            = "elite"
+  versioning      = "Enabled"
+  bucket-use-case = "alpenmechanik-sftp-server-bucket"
+}
