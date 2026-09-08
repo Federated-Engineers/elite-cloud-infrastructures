@@ -184,5 +184,5 @@ module "client_alpenmachanik_sftp_server_storage" {
   service         = "airflow-and-transfer-family"
   team            = "elite"
   versioning      = "Enabled"
-  bucket-use-case = "alpenmechanik-sftp-server-bucket"
+  bucket-use-case = "client-alpenmechanik"
 }
