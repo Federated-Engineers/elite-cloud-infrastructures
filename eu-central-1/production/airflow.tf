@@ -40,6 +40,7 @@ resource "aws_iam_policy" "airflow_policy" {
           module.client_alpenmachanik_sftp_server_storage.arn,
           "${module.client_alpenmachanik_sftp_server_storage.arn}/*"
         ]
+
       },
 
       {
