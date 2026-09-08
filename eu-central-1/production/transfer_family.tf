@@ -125,7 +125,7 @@ resource "aws_transfer_user" "repairpartner" {
   home_directory_type = "LOGICAL"
   home_directory_mappings {
     entry  = "/"
-    target = "/${module.client_alpenmachanik_sftp_server_storage.id}/repairpartner"
+    target = "/${module.client_alpenmachanik_sftp_server_storage.bucket_name}/repairpartner"
   }
 
 }
