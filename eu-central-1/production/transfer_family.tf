@@ -30,11 +30,15 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
 }
 
 
-resource "aws_eip" "sftp_server" {
+resource "aws_eip" "sftp_subnet_a" {
   domain = "vpc"
   tags   = local.common_tags
 }
 
+resource "aws_eip" "sftp_subnet_b" {
+  domain = "vpc"
+  tags   = local.common_tags
+}
 
 # IAM
 
@@ -69,7 +73,7 @@ resource "aws_iam_role_policy" "sftp_policy" {
 
 data "aws_iam_policy_document" "sftp_assumerole" {
   statement {
-    sid = "sftp_assumerole"
+    sid = "SftpAssumerole"
 
     effect = "Allow"
 
@@ -100,7 +104,7 @@ resource "aws_transfer_server" "alpenmechanik_sftp" {
   endpoint_type = "VPC"
 
   endpoint_details {
-    address_allocation_ids = [aws_eip.sftp_server.id]
+    address_allocation_ids = [aws_eip.sftp_subnet_a.id, aws_eip.sftp_subnet_b.id]
     vpc_id                 = data.aws_vpc.federated_vpc.id
     subnet_ids             = [var.production-vpc-subnet-public-a, var.production-vpc-subnet-public-b]
     security_group_ids     = [aws_security_group.allow_ssh_to_sftp.id]
