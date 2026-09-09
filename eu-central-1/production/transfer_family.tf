@@ -11,7 +11,7 @@ resource "aws_security_group" "allow_ssh_to_sftp" {
   vpc_id      = var.production-vpc
 
   tags = merge(local.common_tags,
-    { Name = "allow_ssh" }
+    { Name = "sftp_sg" }
   )
 }
 
@@ -115,10 +115,10 @@ resource "aws_transfer_server" "alpenmechanik_sftp" {
 
 # TRANSFER FAMILY USER
 resource "aws_transfer_user" "repairpartner" {
-  server_id = aws_transfer_server.alpenmechanik_sftp.id
-  user_name = "repairpartner"
-  role      = aws_iam_role.transfer_family.arn
-  depends_on = [aws_iam_role_policy.sftp_policy.arn]
+  server_id  = aws_transfer_server.alpenmechanik_sftp.id
+  user_name  = "repairpartner"
+  role       = aws_iam_role.transfer_family.arn
+  depends_on = [aws_iam_role_policy.sftp_policy]
 
   home_directory_type = "LOGICAL"
   home_directory_mappings {
