@@ -6,7 +6,7 @@ data "aws_vpc" "federated_vpc" {
 }
 
 resource "aws_security_group" "allow_ssh_to_sftp" {
-  name        = "allow_ssh"
+  name        = "sftp_sg"
   description = "Allow SSH inbound traffic and all outbound traffic"
   vpc_id      = var.production-vpc
 
@@ -36,7 +36,6 @@ resource "aws_eip" "sftp_server" {
 }
 
 
-
 # IAM
 
 data "aws_iam_policy_document" "read_s3" {
@@ -48,9 +47,7 @@ data "aws_iam_policy_document" "read_s3" {
     actions = [
       "s3:Get*",
       "s3:List*",
-      "s3:Describe*",
-      "s3-object-lambda:Get*",
-      "s3-object-lambda:List*"
+      "s3:Describe*"
     ]
 
     resources = [
@@ -105,7 +102,7 @@ resource "aws_transfer_server" "alpenmechanik_sftp" {
   endpoint_details {
     address_allocation_ids = [aws_eip.sftp_server.id]
     vpc_id                 = data.aws_vpc.federated_vpc.id
-    subnet_ids             = [var.production-vpc-subnet-public-a]
+    subnet_ids             = [var.production-vpc-subnet-public-a, var.production-vpc-subnet-public-b]
     security_group_ids     = [aws_security_group.allow_ssh_to_sftp.id]
 
   }
@@ -121,6 +118,7 @@ resource "aws_transfer_user" "repairpartner" {
   server_id = aws_transfer_server.alpenmechanik_sftp.id
   user_name = "repairpartner"
   role      = aws_iam_role.transfer_family.arn
+  depends_on = [aws_iam_role_policy.sftp_policy.arn]
 
   home_directory_type = "LOGICAL"
   home_directory_mappings {
