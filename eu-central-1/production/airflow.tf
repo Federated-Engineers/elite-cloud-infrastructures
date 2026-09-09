@@ -37,7 +37,10 @@ resource "aws_iam_policy" "airflow_policy" {
           "${module.lumina_bricks_properties_bucket.arn}/*",
           module.mare_viva_bucket.arn,
           "${module.mare_viva_bucket.arn}/*",
+          module.client_alpenmachanik_sftp_server_storage.arn,
+          "${module.client_alpenmachanik_sftp_server_storage.arn}/*"
         ]
+
       },
 
       {
