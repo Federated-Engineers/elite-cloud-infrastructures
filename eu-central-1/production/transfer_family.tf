@@ -17,7 +17,7 @@ resource "aws_security_group" "allow_ssh_to_sftp" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
   security_group_id = aws_security_group.allow_ssh_to_sftp.id
-  cidr_ipv4         = "105.113.99.211/32" # "0.0.0.0/0"
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
