@@ -186,3 +186,14 @@ module "client_alpenmachanik_sftp_server_storage" {
   versioning      = "Enabled"
   bucket-use-case = "client-alpenmechanik"
 }
+
+module "urban_route_tfstate_bucket_v2" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "urban-route-tfstate-v2"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
+
