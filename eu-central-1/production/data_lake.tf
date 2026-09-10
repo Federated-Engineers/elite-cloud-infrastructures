@@ -136,16 +136,6 @@ module "cocosurf_gear_tfstate_bucket" {
   versioning      = "Enabled"
 }
 
-module "urban_route_tfstate_bucket" {
-  source = "../modules/s3-bucket"
-
-  environment     = var.environment
-  team            = "elite"
-  bucket-use-case = "urban-route-tfstate"
-  service         = "Terraform"
-  versioning      = "Enabled"
-}
-
 module "ambergrid_tfstate_bucket" {
   source = "../modules/s3-bucket"
 
@@ -186,3 +176,14 @@ module "client_alpenmachanik_sftp_server_storage" {
   versioning      = "Enabled"
   bucket-use-case = "client-alpenmechanik"
 }
+
+module "urban_route_tfstate_bucket_v2" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "urban-route-tfstate-v2"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
+
