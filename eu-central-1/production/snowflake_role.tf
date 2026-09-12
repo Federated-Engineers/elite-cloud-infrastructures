@@ -13,7 +13,8 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
           AWS = [
             "arn:aws:iam::650012445037:user/0trs1000-s",
             "arn:aws:iam::465573888563:user/vrpv1000-s",
-            "arn:aws:iam::269657857787:user/lw0u1000-s"
+            "arn:aws:iam::269657857787:user/lw0u1000-s",
+            "arn:aws:iam::465573888563:user/sspv1000-s"
           ]
         }
         Condition = {
@@ -24,7 +25,8 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
               "VL00901_SFCRole=121_d9i6/fwg6l03qBKOJJ8j3ICX33w=",
               "SQ35311_SFCRole=3241_N1K8Ci5Pwp3XCRp5LObc8Pn5QrM=",
               "SQ35311_SFCRole=3241_JR3SANnMUKEyOieohU5Aw52DekU=",
-              "DE99622_SFCRole=241_cuTmBmy+nJCw0nae4+uaOeAkBBo="
+              "DE99622_SFCRole=241_cuTmBmy+nJCw0nae4+uaOeAkBBo=",
+              "GG68509_SFCRole=1141_/ri80DSyEc0ptGFVSVmdWzDkzKU="
             ]
           }
         }
@@ -59,7 +61,9 @@ resource "aws_iam_policy" "elite_snowflake_s3_policy" {
           "arn:aws:s3:::ambergrid-iot-telemetry-lake",
           "arn:aws:s3:::ambergrid-iot-telemetry-lake/*",
           "arn:aws:s3:::solaz-supplychain-lake",
-          "arn:aws:s3:::solaz-supplychain-lake/*"
+          "arn:aws:s3:::solaz-supplychain-lake/*",
+          "arn:aws:s3:::urbanroute-telemetry-lake",
+          "arn:aws:s3:::urbanroute-telemetry-lake/*"
         ]
       }
     ]
