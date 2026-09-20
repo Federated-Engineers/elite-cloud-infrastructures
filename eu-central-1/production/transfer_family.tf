@@ -63,13 +63,13 @@ data "aws_iam_policy_document" "read_s3" {
 
     sid = "readS3"
 
-        effect = "Allow"
+    effect = "Allow"
 
-        actions = [
-          "s3:Get*",
-          "s3:List*",
-          "s3:Describe*"
-        ]
+    actions = [
+      "s3:Get*",
+      "s3:List*",
+      "s3:Describe*"
+    ]
 
     resources = [
       module.client_alpenmachanik_sftp_server_storage.arn,
