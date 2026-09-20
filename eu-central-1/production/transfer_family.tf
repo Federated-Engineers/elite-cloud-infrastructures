@@ -43,7 +43,24 @@ resource "aws_eip" "sftp_subnet_b" {
 # IAM
 
 data "aws_iam_policy_document" "read_s3" {
+
   statement {
+
+    sid = "lists3buckets"
+
+    effect = "Allow"
+
+    actions = [
+      "s3:ListAllMyBuckets"
+    ]
+
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+
     sid = "readS3"
 
     effect = "Allow"
@@ -55,7 +72,7 @@ data "aws_iam_policy_document" "read_s3" {
     ]
 
     resources = [
-      "${module.client_alpenmachanik_sftp_server_storage.arn}/repairpartner",
+      module.client_alpenmachanik_sftp_server_storage.arn,
       "${module.client_alpenmachanik_sftp_server_storage.arn}/repairpartner/*"
     ]
   }
