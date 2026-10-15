@@ -280,3 +280,4 @@ resource "aws_ecr_lifecycle_policy" "elite_lonestar_assurance" {
 
   policy = data.aws_ecr_lifecycle_policy_document.elite_lonestar_assurance.json
 }
+
