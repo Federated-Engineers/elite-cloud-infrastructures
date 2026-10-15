@@ -247,3 +247,36 @@ resource "aws_ecr_lifecycle_policy" "elite_angelcity_dbt" {
 }
 
 
+resource "aws_ecr_repository" "elite_lonestar_assurance" {
+  name                 = "elite-lonestar-assurance"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  tags = merge(local.common_tags, { Name = "elite-lonestar-assurance" })
+}
+
+
+data "aws_ecr_lifecycle_policy_document" "elite_lonestar_assurance" {
+  rule {
+    priority    = 1
+    description = "To delete old ecr images but keep the 3 most recent images"
+    action {
+      type = "expire"
+    }
+
+    selection {
+      tag_status   = "any"
+      count_type   = "imageCountMoreThan"
+      count_number = 3
+    }
+  }
+}
+
+resource "aws_ecr_lifecycle_policy" "elite_lonestar_assurance" {
+  repository = aws_ecr_repository.elite_lonestar_assurance.name
+
+  policy = data.aws_ecr_lifecycle_policy_document.elite_lonestar_assurance.json
+}
