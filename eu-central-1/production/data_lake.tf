@@ -196,3 +196,12 @@ module "lonestar_assurance_tfstate" {
   versioning      = "Enabled"
   bucket-use-case = "lonestar-assurance-tfstate"
 }
+module "urban_route_tfstate_bucket_v3" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "urban-route-tfstate-v3"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
