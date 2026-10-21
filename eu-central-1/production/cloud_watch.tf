@@ -50,3 +50,14 @@ resource "aws_cloudwatch_log_group" "elite_cocosurf_gear_dbt_logs" {
     { Name = "elite-cocosurf-gear-dbt-logs" }
   )
 }
+
+
+resource "aws_cloudwatch_log_group" "elite_lonestar_assurance_dbt_logs" {
+  name              = "lonestar-assurance"
+  retention_in_days = 30
+
+  tags = merge(
+    local.common_tags, { Name = "lonestar-assurance" }
+  )
+
+}

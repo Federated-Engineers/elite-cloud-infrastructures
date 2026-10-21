@@ -24,3 +24,7 @@ data "aws_ssm_parameter" "cocosurf_gear_snowflake_password" {
 data "aws_ssm_parameter" "elite_kings_county_snowflake_ecs_password" {
   name = "/production/elite/snowflake/kings_county/ecs_user_password"
 }
+
+data "aws_ssm_parameter" "lonestar_assurance_snowflake_dbt_priv8key" {
+  name = "/production/elite/snowflake/lonestar-assurance/dbt-priv8key"
+}
