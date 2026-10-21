@@ -268,3 +268,67 @@ resource "aws_ecs_task_definition" "elite_cocosurf_gear_dbt_task" {
     { Name = "elite_cocosurf_gear-dbt-task" }
   )
 }
+
+
+resource "aws_ecs_task_definition" "elite_lonestar_assurance" {
+  family                   = "elite_lonestar_assurance"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = 512
+  memory                   = 1024
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  container_definitions = jsonencode([
+    {
+      name      = "elite-lonestar-assurance"
+      image     = "${aws_ecr_repository.elite_lonestar_assurance.repository_url}:latest"
+      essential = true
+
+      logConfiguration = {
+        logDriver = "awslogs"
+
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.elite_lonestar_assurance_dbt_logs.name
+          awslogs-region        = "eu-central-1"
+          awslogs-stream-prefix = "ecs"
+        }
+      }
+
+      environment = [
+        {
+          name  = "DBT_SNOWFLAKE_ACCOUNT"
+          value = "TCTTLJK-UM02418"
+        },
+        {
+          name  = "DATABASE"
+          value = "LONESTAR_PROD_DATABASE"
+        },
+        {
+          name  = "DBT_ROLE"
+          value = "DBT_PROD_ROLE"
+        },
+        {
+          name  = "SCHEMA"
+          value = "SILVER"
+        },
+        {
+          name  = "DBT_USER"
+          value = "DBT_SERVICE_USER"
+        },
+        {
+          name  = "WAREHOUSE"
+          value = "LONESTAR_WH"
+        }
+      ]
+      secrets = [
+        {
+          name      = "SNOWFLAKE_PRIVATE_KEY"
+          valueFrom = data.aws_ssm_parameter.lonestar_assurance_snowflake_dbt_priv8key.arn
+        }
+      ]
+    }
+  ])
+
+  tags = merge(local.common_tags,
+    { Name = "elite_lonestar_assurance" }
+  )
+}
