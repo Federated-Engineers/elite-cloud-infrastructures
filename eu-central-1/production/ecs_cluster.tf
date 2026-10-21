@@ -71,3 +71,20 @@ resource "aws_ecs_cluster" "elite_cocosurf_gear_dbt" {
     }
   )
 }
+
+
+resource "aws_ecs_cluster" "elite_lonestar_assurance" {
+  name = "elite-lonestar-assurance"
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "elite-lonestar-assurance"
+    }
+  )
+}
