@@ -52,7 +52,7 @@ resource "aws_cloudwatch_log_group" "elite_cocosurf_gear_dbt_logs" {
 }
 
 
-resource "aws_cloudwatch_log_group" "lonestar_assurance_dbt_logs" {
+resource "aws_cloudwatch_log_group" "elite_lonestar_assurance_dbt_logs" {
   name              = "lonestar-assurance"
   retention_in_days = 30
 
