@@ -295,6 +295,10 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance" {
 
       environment = [
         {
+          name  = "DBT_TARGET"
+          value = "production"
+        },
+        {
           name  = "DBT_SNOWFLAKE_ACCOUNT"
           value = "TCTTLJK-UM02418"
         },
