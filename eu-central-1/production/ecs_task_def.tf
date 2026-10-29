@@ -320,7 +320,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance" {
         },
         {
           name  = "WAREHOUSE"
-          value = "LONESTAR_WH"
+          value = "LONESTAR_DBT_PROD_WH"
         }
       ]
       secrets = [
