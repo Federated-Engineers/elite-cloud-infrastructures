@@ -205,3 +205,13 @@ module "urban_route_tfstate_bucket_v3" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "apex_logistics_tfstate_staging_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "apex-logistics-tfstate"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
