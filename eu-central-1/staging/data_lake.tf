@@ -26,3 +26,13 @@ module "ambergrid_tfstate_staging_bucket" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "apex_logistics_tfstate_staging_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "apex-logistics-tfstate"
+  service         = "Terraform"
+  versioning      = "Enabled"
+}
