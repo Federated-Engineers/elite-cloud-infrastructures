@@ -29,6 +29,7 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
               "DE99622_SFCRole=241_cuTmBmy+nJCw0nae4+uaOeAkBBo=",
               "GG68509_SFCRole=1141_/ri80DSyEc0ptGFVSVmdWzDkzKU=",
               "VV30470_SFCRole=571_mOh5EI+BatWVIDxdIC6bdBqnkdU="
+
             ]
           }
         }
