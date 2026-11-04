@@ -316,11 +316,11 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance" {
         },
         {
           name  = "DBT_USER"
-          value = "DBT_SERVICE_USER"
+          value = "DBT_PROD_SERVICE_USER"
         },
         {
           name  = "WAREHOUSE"
-          value = "LONESTAR_WH"
+          value = "LONESTAR_DBT_PROD_WH"
         }
       ]
       secrets = [

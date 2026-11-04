@@ -14,7 +14,8 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
             "arn:aws:iam::650012445037:user/0trs1000-s",
             "arn:aws:iam::465573888563:user/vrpv1000-s",
             "arn:aws:iam::269657857787:user/lw0u1000-s",
-            "arn:aws:iam::465573888563:user/sspv1000-s"
+            "arn:aws:iam::465573888563:user/sspv1000-s",
+            "arn:aws:iam::217508029465:user/jba32000-s"
           ]
         }
         Condition = {
@@ -26,7 +27,9 @@ resource "aws_iam_role" "elite_snowflake_s3_role" {
               "SQ35311_SFCRole=3241_N1K8Ci5Pwp3XCRp5LObc8Pn5QrM=",
               "SQ35311_SFCRole=3241_JR3SANnMUKEyOieohU5Aw52DekU=",
               "DE99622_SFCRole=241_cuTmBmy+nJCw0nae4+uaOeAkBBo=",
-              "GG68509_SFCRole=1141_/ri80DSyEc0ptGFVSVmdWzDkzKU="
+              "GG68509_SFCRole=1141_/ri80DSyEc0ptGFVSVmdWzDkzKU=",
+              "VV30470_SFCRole=571_mOh5EI+BatWVIDxdIC6bdBqnkdU="
+
             ]
           }
         }
