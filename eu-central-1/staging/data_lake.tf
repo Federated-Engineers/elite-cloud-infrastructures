@@ -36,3 +36,28 @@ module "apex_logistics_tfstate_staging_bucket" {
   service         = "Terraform"
   versioning      = "Enabled"
 }
+
+module "apex_logistics_emr_logs_staging_bucket" {
+  source = "../modules/s3-bucket"
+
+  environment     = var.environment
+  team            = "elite"
+  bucket-use-case = "apex-logistics-emr-logs"
+  service         = "emr"
+  versioning      = "Suspended"
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "apex_logistics_emr_logs_staging_expiry" {
+  bucket = module.apex_logistics_emr_logs_staging_bucket.bucket_name
+
+  rule {
+    id     = "expire-emr-logs"
+    status = "Enabled"
+
+    filter {}
+
+    expiration {
+      days = 30
+    }
+  }
+}
