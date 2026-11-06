@@ -1,7 +1,7 @@
 resource "aws_security_group" "emr_primary" {
   name                   = "elite-emr-staging-primary-sg"
   description            = "EMR primary node"
-  vpc_id                 = var.emr_vpc_id
+  vpc_id                 = data.aws_vpc.emr.id
   revoke_rules_on_delete = true
 
   tags = merge(local.common_tags, {
@@ -13,7 +13,7 @@ resource "aws_security_group" "emr_primary" {
 resource "aws_security_group" "emr_core_task" {
   name                   = "elite-emr-staging-core-task-sg"
   description            = "EMR core and task nodes"
-  vpc_id                 = var.emr_vpc_id
+  vpc_id                 = data.aws_vpc.emr.id
   revoke_rules_on_delete = true
 
   tags = merge(local.common_tags, {

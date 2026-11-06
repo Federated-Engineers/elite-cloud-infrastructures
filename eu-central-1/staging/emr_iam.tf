@@ -83,7 +83,7 @@ resource "aws_iam_role_policy" "apex_logistics_emr_instance_s3" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "ListBuckets"
+        Sid    = "ListLogsBucket"
         Effect = "Allow"
         Action = [
           "s3:ListBucket",
@@ -98,8 +98,7 @@ resource "aws_iam_role_policy" "apex_logistics_emr_instance_s3" {
         Effect = "Allow"
         Action = [
           "s3:GetObject",
-          "s3:PutObject",
-          "s3:DeleteObject"
+          "s3:PutObject"
         ]
         Resource = [
           "${module.apex_logistics_emr_logs_staging_bucket.arn}/*"
