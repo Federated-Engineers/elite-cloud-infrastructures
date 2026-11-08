@@ -103,6 +103,27 @@ resource "aws_iam_role_policy" "apex_logistics_emr_instance_s3" {
         Resource = [
           "${module.apex_logistics_emr_logs_staging_bucket.arn}/*"
         ]
+      },
+      {
+        Sid    = "ListSourceBucket"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ]
+        Resource = [
+          "arn:aws:s3:::spark-apex-freight-data"
+        ]
+      },
+      {
+        Sid    = "ReadSourceData"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::spark-apex-freight-data/raw/*"
+        ]
       }
     ]
   })
