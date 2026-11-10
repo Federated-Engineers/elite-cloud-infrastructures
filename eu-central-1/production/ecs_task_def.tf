@@ -325,7 +325,7 @@ resource "aws_ecs_task_definition" "elite_lonestar_assurance" {
       ]
       secrets = [
         {
-          name      = "SNOWFLAKE_PRIVATE_KEY"
+          name      = "SNOWFLAKE_DBT_PRIVATE_KEY"
           valueFrom = data.aws_ssm_parameter.lonestar_assurance_snowflake_dbt_priv8key.arn
         }
       ]
