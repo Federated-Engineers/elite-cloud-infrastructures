@@ -124,6 +124,28 @@ resource "aws_iam_role_policy" "apex_logistics_emr_instance_s3" {
         Resource = [
           "arn:aws:s3:::spark-apex-freight-data/raw/*"
         ]
+      },
+      {
+        Sid    = "ReadWriteProcessedData"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::spark-apex-freight-data/processed/*"
+        ]
+      },
+      {
+        Sid    = "ReadArtifacts"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::spark-apex-freight-data/artifacts/*"
+        ]
       }
     ]
   })
