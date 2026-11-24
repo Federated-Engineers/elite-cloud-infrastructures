@@ -63,6 +63,75 @@ resource "aws_iam_policy" "airflow_policy" {
           "glue:*"
         ]
         Resource = ["*"]
+      },
+
+      {
+        Sid    = "CreateEMRClusters"
+        Effect = "Allow"
+        Action = [
+          "elasticmapreduce:RunJobFlow",
+          "elasticmapreduce:AddTags"
+        ]
+        Resource = ["*"]
+      },
+
+      {
+        Sid    = "ManageEMRClusters"
+        Effect = "Allow"
+        Action = [
+          "elasticmapreduce:AddJobFlowSteps",
+          "elasticmapreduce:DescribeStep",
+          "elasticmapreduce:DescribeCluster",
+          "elasticmapreduce:TerminateJobFlows"
+        ]
+        Resource = [
+          "arn:aws:elasticmapreduce:eu-central-1:049417293525:cluster/*"
+        ]
+      },
+
+      {
+        Sid    = "PassEMRServiceRole"
+        Effect = "Allow"
+        Action = [
+          "iam:PassRole"
+        ]
+        Resource = [
+          aws_iam_role.emr_service.arn
+        ]
+        Condition = {
+          StringLike = {
+            "iam:PassedToService" = "elasticmapreduce.amazonaws.com"
+          }
+        }
+      },
+
+      {
+        Sid    = "PassEMRInstanceRoles"
+        Effect = "Allow"
+        Action = [
+          "iam:PassRole"
+        ]
+        Resource = [
+          aws_iam_role.apex_logistics_emr_instance.arn
+        ]
+        Condition = {
+          StringLike = {
+            "iam:PassedToService" = "ec2.amazonaws.com"
+          }
+        }
+      },
+
+      {
+        Sid    = "ReadEMRStepLogs"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetObject"
+        ]
+        Resource = [
+          module.apex_logistics_emr_logs_production_bucket.arn,
+          "${module.apex_logistics_emr_logs_production_bucket.arn}/*"
+        ]
       }
     ]
   })
