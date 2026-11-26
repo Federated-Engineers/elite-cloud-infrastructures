@@ -70,3 +70,42 @@ resource "aws_iam_role_policy_attachment" "ecr_push_attach" {
   role       = aws_iam_role.github_actions_role.name
   policy_arn = aws_iam_policy.ecr_push.arn
 }
+
+data "aws_iam_policy_document" "apex_logistics_artifacts_sync_policy" {
+  statement {
+    sid    = "ListArtifacts"
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket"
+    ]
+    resources = ["arn:aws:s3:::spark-apex-freight-data"]
+
+    condition {
+      test     = "StringLike"
+      variable = "s3:prefix"
+      values   = ["artifacts/prod/*"]
+    }
+  }
+
+  statement {
+    sid    = "SyncArtifacts"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:DeleteObject"
+    ]
+    resources = ["arn:aws:s3:::spark-apex-freight-data/artifacts/prod/*"]
+  }
+}
+
+resource "aws_iam_policy" "apex_logistics_artifacts_sync" {
+  name        = "github-actions-apex-logistics-artifacts-sync-policy"
+  description = "Allows GitHub Actions to sync Apex Logistics Spark jobs to the prod artifacts folder"
+  policy      = data.aws_iam_policy_document.apex_logistics_artifacts_sync_policy.json
+  tags        = merge(local.common_tags, { Name = "elite-open-id" })
+}
+
+resource "aws_iam_role_policy_attachment" "apex_logistics_artifacts_sync_attach" {
+  role       = aws_iam_role.github_actions_role.name
+  policy_arn = aws_iam_policy.apex_logistics_artifacts_sync.arn
+}
